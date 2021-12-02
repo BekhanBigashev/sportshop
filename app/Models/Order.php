@@ -21,6 +21,16 @@ class Order extends Model
         return $sum;
     }
 
+    public function TotalCountOfProducts(){
+        $count = 0;
+        foreach($this->products as $product){
+            $count += $product->pivot->count;
+        }
+        return $count;
+    }
+//    public function user(){
+//        return $this->belongsTo(User::class);
+//    }
     public function saveOrder($name, $phone){
         if ($this->status == 0){
             $this->name = $name;

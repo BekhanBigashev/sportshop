@@ -53,6 +53,7 @@
                             <li><a href="{{ route('login') }}"><i class="fa fa-user-o"></i>Войти</a></li>
                         @endguest
                         @auth
+                                <li><a href="{{ route('home') }}"><i class="fa fa-user-o"></i> Личный кабинет</a></li>
                             <li><a href="{{ route('logout') }}"><i class="fa fa-user-o"></i> Выйти</a></li>
                         @endauth
 
@@ -107,7 +108,7 @@
 										<i class="fa fa-shopping-cart"></i>
 										<span>Корзина</span>
                                         @if($order)
-										<div class="qty">{{$order->totalCountOfProducts}}</div>
+										<div class="qty">{{$order->TotalCountOfProducts()}}</div>
                                         @endif
 
 									</a>
@@ -190,7 +191,7 @@
         @endif
 		<!-- NAVIGATION -->
         <nav id="navigation">
-			
+
 			<div class="container">
 				<!-- responsive-nav -->
 				<div id="responsive-nav">
@@ -231,11 +232,11 @@
 					<div class="row">
 						<div class="col-md-3 col-xs-6">
 							<div class="footer">
-								<h3 class="footer-title">About Us</h3>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut.</p>
+								<h3 class="footer-title">О нас </h3>
+								<p>Интернет магазин спортивной одежды</p>
 								<ul class="footer-links">
-									<li><a href="#"><i class="fa fa-map-marker"></i>1734 Stonecoal Road</a></li>
-									<li><a href="#"><i class="fa fa-phone"></i>+021-95-51-84</a></li>
+									<li><a href="#"><i class="fa fa-map-marker"></i>Qostanay Abay avenue</a></li>
+									<li><a href="#"><i class="fa fa-phone"></i>87777777777</a></li>
 									<li><a href="#"><i class="fa fa-envelope-o"></i>email@email.com</a></li>
 								</ul>
 							</div>
@@ -245,9 +246,14 @@
 							<div class="footer">
 								<h3 class="footer-title">Категории</h3>
 								<ul class="footer-links">
-                                    {{-- @foreach ($categories as $category)
-                                    <li><a href="#">{{$category->name}}</a></li>
-                                    @endforeach	 --}}
+                                    @foreach ($categories as $category)
+                                    <li><a class="footer_main_link" href="/{{$category->code}}/">{{$category->name}}</a></li>
+                                        @if($category->childrens)
+                                            @foreach($category->childrens as $children)
+                                                <li><a class="footer_children_link" href="/{{$children->code}}/">{{$children->name}}</a></li>
+                                            @endforeach
+                                        @endif
+                                    @endforeach
 
 								</ul>
 							</div>

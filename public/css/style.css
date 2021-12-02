@@ -2212,3 +2212,25 @@ textarea.input {
 .message-notice{
     background: #ffc107;;
 }
+.footer_children_link{
+    margin-left: 10px;
+    color: #767676 !important;
+}
+.custom_basket{
+    border: 1px solid #d0d0d0;
+    padding: 1.875rem;
+}
+.basket-item{
+    display: flex;
+}
+.basket-item .image{
+    width: 7.5rem;
+    height: 6.625rem;
+}
+.basket-item .image img{
+    max-width: 100%;
+    height: auto;
+}
+.content{
+    margin-bottom: 30px;
+}

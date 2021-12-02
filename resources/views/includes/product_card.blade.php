@@ -1,5 +1,5 @@
 <!-- product -->
-<div class="col-md-4 col-xs-6">
+<div class="col-md-4 col-xs-2">
     <div class="product">
         <div class="product-img">
             <img src="{{$product->image}}" alt="">

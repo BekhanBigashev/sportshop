@@ -3,11 +3,19 @@
 
 @section('content')
 
-{{$category->name}}
+<h1>{{$category->name}}</h1>
+    @if($category->parent_id != 0)
+    <div class="row">
+        @foreach ($category->products as $product)
+            @include('includes/product_card')
+        @endforeach
+    </div>
+    @else
+        <div class="row">
+            @foreach ($category->childrens as $category)
+                @include('includes/category_card')
+            @endforeach
+        </div>
+    @endif
 
-<div class="row">
-    @foreach ($category->products as $product)
-        @include('includes/product_card')
-    @endforeach
-</div>
-@endsection
+    @endsection
