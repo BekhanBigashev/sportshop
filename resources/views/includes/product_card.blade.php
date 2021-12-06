@@ -2,10 +2,11 @@
 <div class="col-md-4 col-xs-2">
     <div class="product">
         <div class="product-img">
+
             <img src="{{$product->image}}" alt="">
             <div class="product-label">
-                <span class="sale">-30%</span>
-                <span class="new">NEW</span>
+{{--                <span class="sale">-30%</span>--}}
+{{--                <span class="new">NEW</span>--}}
             </div>
         </div>
         <div class="product-body">

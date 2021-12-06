@@ -71,11 +71,7 @@
 						<!-- LOGO -->
 						<div class="col-md-3">
 							<div class="header-logo">
-								<a href="#" class="logo" style="color: #4aa662;
-    font-size: 37px;
-    line-height: 71px;
-    font-style: initial;
-    font-family: fantasy;">
+								<a href="{{route('index')}}" class="logo">
 									SPORTSHOP
 								</a>
 							</div>
@@ -123,7 +119,7 @@
                                                             <img src="{{$product->image}}" alt="{{$product->name}}">
                                                         </div>
                                                         <div class="product-body">
-                                                            <h3 class="product-name"><a href="#">{{$product->name}}</a></h3>
+                                                            <h3 class="product-name"><a href="/{{$product->category->code}}/{{$product->code}}/">{{$product->name}}</a></h3>
                                                             <h4 class="product-price"><span class="qty">{{$product->pivot->count}}x</span>{{$product->price}} KZT</h4>
                                                         </div>
                                                     </div>
@@ -230,7 +226,7 @@
 				<div class="container">
 					<!-- row -->
 					<div class="row">
-						<div class="col-md-3 col-xs-6">
+						<div class="col-md-9 col-xs-6">
 							<div class="footer">
 								<h3 class="footer-title">О нас </h3>
 								<p>Интернет магазин спортивной одежды</p>
@@ -259,33 +255,33 @@
 							</div>
 						</div>
 
-						<div class="clearfix visible-xs"></div>
+{{--						<div class="clearfix visible-xs"></div>--}}
 
-						<div class="col-md-3 col-xs-6">
-							<div class="footer">
-								<h3 class="footer-title">Information</h3>
-								<ul class="footer-links">
-									<li><a href="#">About Us</a></li>
-									<li><a href="#">Contact Us</a></li>
-									<li><a href="#">Privacy Policy</a></li>
-									<li><a href="#">Orders and Returns</a></li>
-									<li><a href="#">Terms & Conditions</a></li>
-								</ul>
-							</div>
-						</div>
+{{--						<div class="col-md-3 col-xs-6">--}}
+{{--							<div class="footer">--}}
+{{--								<h3 class="footer-title">Information</h3>--}}
+{{--								<ul class="footer-links">--}}
+{{--									<li><a href="#">About Us</a></li>--}}
+{{--									<li><a href="#">Contact Us</a></li>--}}
+{{--									<li><a href="#">Privacy Policy</a></li>--}}
+{{--									<li><a href="#">Orders and Returns</a></li>--}}
+{{--									<li><a href="#">Terms & Conditions</a></li>--}}
+{{--								</ul>--}}
+{{--							</div>--}}
+{{--						</div>--}}
 
-						<div class="col-md-3 col-xs-6">
-							<div class="footer">
-								<h3 class="footer-title">Service</h3>
-								<ul class="footer-links">
-									<li><a href="#">My Account</a></li>
-									<li><a href="#">View Cart</a></li>
-									<li><a href="#">Wishlist</a></li>
-									<li><a href="#">Track My Order</a></li>
-									<li><a href="#">Help</a></li>
-								</ul>
-							</div>
-						</div>
+{{--						<div class="col-md-3 col-xs-6">--}}
+{{--							<div class="footer">--}}
+{{--								<h3 class="footer-title">Service</h3>--}}
+{{--								<ul class="footer-links">--}}
+{{--									<li><a href="#">My Account</a></li>--}}
+{{--									<li><a href="#">View Cart</a></li>--}}
+{{--									<li><a href="#">Wishlist</a></li>--}}
+{{--									<li><a href="#">Track My Order</a></li>--}}
+{{--									<li><a href="#">Help</a></li>--}}
+{{--								</ul>--}}
+{{--							</div>--}}
+{{--						</div>--}}
 					</div>
 					<!-- /row -->
 				</div>
