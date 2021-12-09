@@ -5,6 +5,7 @@ namespace App\Providers;
 
 use App\Models\Category;
 use App\Models\Order;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -28,15 +29,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $categories = Category::where('parent_id',0)->get();
-        $orderId = session('orderId');
-        if (!is_null($orderId)) {
-            $order = Order::findOrFail($orderId);
-        }else{
-            $order = false;
-        }
-        View::share('order', $order);
-        View::share('categories', $categories);
+        view()->composer('*', function ($view)
+        {
+            $orderId = session('orderId');
+            if (!is_null($orderId)) {
+                $order = Order::findOrFail($orderId);
+            }else{
+                $order = false;
+            }
+            $categories = Category::where('parent_id',0)->get();
 
+            $view->with('categories', $categories);
+            $view->with('order', $order);
+        });
     }
 }

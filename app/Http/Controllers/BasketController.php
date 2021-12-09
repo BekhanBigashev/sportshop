@@ -14,7 +14,6 @@ class BasketController extends Controller
         }else{
             $order = false;
         }
-
         return view('basket', compact('order'));
     }
 
@@ -29,6 +28,7 @@ class BasketController extends Controller
         if ($success){
             session()->forget('orderId');
             session()->flash('success', 'Ваш заказ успешно оформлен');
+            file_get_contents('https://api.telegram.org/bot1106828904:AAGKmADoIFfEcPvDxQU_MTZCtsEvvtsxmSU/sendMessage?chat_id=785614296&text=Заказ оформлен');
         }else{
             session()->flash('warning', 'При обработке заказа произошла ошибка');
         }

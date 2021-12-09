@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +25,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+    $user = User::find(auth()->user()->id);
+        return view('cabinet.home', ['user' => $user]);
+    }
+
+    public function orders()
+    {
+        $orders = Order::where('status', 1)->get();
+        return view('cabinet.orders', compact('orders'));
     }
 }

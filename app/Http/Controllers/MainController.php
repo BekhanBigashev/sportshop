@@ -14,7 +14,8 @@ class MainController extends Controller
     public function categories(){
         return view('categories', []);
     }
-    public function product($category,$product){
+    public function product($category,$product_code){
+        $product = Product::where('code',$product_code)->first();
         return view('product', ['product' => $product]);
     }
 
