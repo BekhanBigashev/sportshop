@@ -13,7 +13,6 @@
                         </div>
                         <div class="name">
                             <a href="/{{$product->category->code}}/{{$product->code}}/">{{$product->name}}</a>
-
                         </div>
                         <div class="price">
                             {{$product->price}}

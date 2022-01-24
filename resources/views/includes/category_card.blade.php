@@ -2,7 +2,7 @@
 <div class="col-md-4 col-xs-6">
     <div class="shop">
         <div class="shop-img">
-            <img src="{{ $category->image}}" alt="">
+            <img src="/{{ $category->image}}" alt="">
         </div>
         <div class="shop-body">
             <h3>{{ $category->name}}</h3>

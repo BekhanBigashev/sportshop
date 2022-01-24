@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Log\Logger;
 
 class BasketController extends Controller
 {
-    public function basket(){
+    public function basket()
+    {
         $orderId = session('orderId');
         if (!is_null($orderId)) {
             $order = Order::findOrFail($orderId);
@@ -28,13 +30,15 @@ class BasketController extends Controller
         if ($success){
             session()->forget('orderId');
             session()->flash('success', 'Ваш заказ успешно оформлен');
-            file_get_contents('https://api.telegram.org/bot1106828904:AAGKmADoIFfEcPvDxQU_MTZCtsEvvtsxmSU/sendMessage?chat_id=785614296&text=Заказ оформлен');
+            
         }else{
             session()->flash('warning', 'При обработке заказа произошла ошибка');
         }
         return redirect()->route('index');
     }
-    public function basketPlace(){
+
+    public function basketPlace()
+    {
         $orderId = session('orderId');
         if (is_null($orderId)) {
             return redirect()->route('index');
@@ -43,8 +47,8 @@ class BasketController extends Controller
         return view('order', compact('order'));
     }
 
-    public function basketAdd($product_id){
-
+    public function basketAdd($product_id)
+    {
         $orderId = session('orderId');
         if (is_null($orderId)) {
             $order = Order::create();
@@ -52,7 +56,7 @@ class BasketController extends Controller
         }else{
             $order = Order::find($orderId);
         }
-        if ($order->products->contains($product_id)){
+        if ($order->products->contains($product_id)) {
             $pivotRow = $order->products()->where('product_id', $product_id)->first()->pivot;
             $pivotRow->count++;
             $pivotRow->update();
@@ -62,16 +66,16 @@ class BasketController extends Controller
         $product = Product::find($product_id);
         session()->flash('success', 'Добавлен товар '. $product->name);
         return redirect()->route('basket');
-
     }
 
-    public function basketRemove($product_id){
+    public function basketRemove($product_id)
+    {
         $orderId = session('orderId');
         $order = Order::find($orderId);
         if (is_null($orderId)) {
             return redirect()->route('basket');
         }
-        if ($order->products->contains($product_id)){
+        if ($order->products->contains($product_id)) {
             $pivotRow = $order->products()->where('product_id', $product_id)->first()->pivot;
             if ($pivotRow->count < 2){
                 $order->products()->detach($product_id);
@@ -83,8 +87,5 @@ class BasketController extends Controller
         $product = Product::find($product_id);
         session()->flash('notice', 'Удален товар '. $product->name);
         return redirect()->route('basket');
-
-
-
     }
 }

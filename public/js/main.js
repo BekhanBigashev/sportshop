@@ -46,6 +46,18 @@
 		});
 	});
 
+    // Catalog Ajax
+    $('#catalog-submit-button').on('click', function (e) {
+        $.ajax({
+            url: "/json-catalog/",
+            method: 'POST',
+            data: {
+                category:5
+            },
+        }).done(function(json) {
+            alert(json);
+        });
+    });
 	// Products Widget Slick
 	$('.products-widget-slick').each(function() {
 		var $this = $(this),
@@ -125,16 +137,16 @@
 		})
 	});
 
-	var priceInputMax = document.getElementById('price-max'),
-			priceInputMin = document.getElementById('price-min');
-
-	priceInputMax.addEventListener('change', function(){
-		updatePriceSlider($(this).parent() , this.value)
-	});
-
-	priceInputMin.addEventListener('change', function(){
-		updatePriceSlider($(this).parent() , this.value)
-	});
+	// var priceInputMax = document.getElementById('price-max'),
+	// 		priceInputMin = document.getElementById('price-min');
+    //
+	// priceInputMax.addEventListener('change', function(){
+	// 	updatePriceSlider($(this).parent() , this.value)
+	// });
+    //
+	// priceInputMin.addEventListener('change', function(){
+	// 	updatePriceSlider($(this).parent() , this.value)
+	// });
 
 	function updatePriceSlider(elem , value) {
 		if ( elem.hasClass('price-min') ) {

@@ -25,8 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-    $user = User::find(auth()->user()->id);
-        return view('cabinet.home', ['user' => $user]);
+        return view('cabinet.home');
     }
 
     public function orders()

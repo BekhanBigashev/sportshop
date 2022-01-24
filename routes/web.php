@@ -23,16 +23,6 @@ Route::group(['middleware' => 'auth'], function(){
     Route::get('/orders', [App\Http\Controllers\HomeController::class, 'orders'])->name('orders');
 });
 
-$groupData = [
-    'prefix' => 'admin/',
-    'namespace' => 'App\Http\Controllers\Admin',
-
-];
-Route::group($groupData, function(){
-    $methods = ['index','edit','store','update','create'];
-    Route::resource('products','ProductController')->only($methods)->names('admin.products');
-});
-
 Route::get('/logout/', "App\Http\Controllers\Auth\LoginController@logout")->name('logout');
 Route::get('/', "App\Http\Controllers\MainController@index")->name('index');
 Route::get("/categories/", "App\Http\Controllers\MainController@categories")->name('categories');
@@ -41,5 +31,7 @@ Route::get('/basket/place/', 'App\Http\Controllers\BasketController@basketPlace'
 Route::post('basket/add/{id}/', 'App\Http\Controllers\BasketController@basketAdd')->name('basket-add');
 Route::post('basket/remove/{id}/', 'App\Http\Controllers\BasketController@basketRemove')->name('basket-remove');
 Route::post('/basket/confirm/', 'App\Http\Controllers\BasketController@basketConfirm')->name('basket-confirm');
-Route::get('/{category}/',"App\Http\Controllers\MainController@category")->name('category');
-Route::get('/{category}/{product_code}/', "App\Http\Controllers\MainController@product")->name('product');
+Route::get('/categories/{category}/',"App\Http\Controllers\MainController@category")->name('category');
+Route::get('/categories/{category}/{product_code}/', "App\Http\Controllers\MainController@product")->name('product');
+Route::get('/catalog/', "App\Http\Controllers\CatalogController@index")->name('catalog');
+Route::match(['GET', 'POST'],'/json-catalog/', "App\Http\Controllers\CatalogController@json");

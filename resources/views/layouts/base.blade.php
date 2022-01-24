@@ -26,7 +26,6 @@
 
  		<!-- Custom stlylesheet -->
  		<link type="text/css" rel="stylesheet" href="/css/style.css"/>
-        asdad
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 		<!--[if lt IE 9]>
@@ -53,7 +52,7 @@
                             <li><a href="{{ route('login') }}"><i class="fa fa-user-o"></i>Войти</a></li>
                         @endguest
                         @auth
-                                <li><a href="{{ route('home') }}"><i class="fa fa-user-o"></i> Личный кабинет</a></li>
+                                <li><a href="{{ route('home') }}"><i class="fa fa-user-o"></i>{{ $user->name  }}</a></li>
                             <li><a href="{{ route('logout') }}"><i class="fa fa-user-o"></i> Выйти</a></li>
                         @endauth
 
@@ -194,7 +193,7 @@
 					<!-- NAV -->
 					<ul class="main-nav nav navbar-nav">
                     <li class="active"><a href="{{route('index')}}">Главная</a></li>
-                    <li><a href="{{route('categories')}}">Категории</a></li>
+                    <li><a href="{{route('catalog')}}">Каталог</a></li>
                      @foreach ($categories as $category)
                     <li><a href="{{route('category', $category->code)}}">{{$category->name}}</a>
 
@@ -243,10 +242,10 @@
 								<h3 class="footer-title">Категории</h3>
 								<ul class="footer-links">
                                     @foreach ($categories as $category)
-                                    <li><a class="footer_main_link" href="/{{$category->code}}/">{{$category->name}}</a></li>
+                                    <li><a class="footer_main_link" href="{{route('category', $category->code)}}/">{{$category->name}}</a></li>
                                         @if($category->childrens)
                                             @foreach($category->childrens as $children)
-                                                <li><a class="footer_children_link" href="/{{$children->code}}/">{{$children->name}}</a></li>
+                                                <li><a class="footer_children_link" href="{{route('category', $children->code)}}/">{{$children->name}}</a></li>
                                             @endforeach
                                         @endif
                                     @endforeach
@@ -290,41 +289,41 @@
 			<!-- /top footer -->
 
 			<!-- bottom footer -->
-			<div id="bottom-footer" class="section">
-				<div class="container">
-					<!-- row -->
-					<div class="row">
-						<div class="col-md-12 text-center">
-							<ul class="footer-payments">
-								<li><a href="#"><i class="fa fa-cc-visa"></i></a></li>
-								<li><a href="#"><i class="fa fa-credit-card"></i></a></li>
-								<li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>
-								<li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>
-								<li><a href="#"><i class="fa fa-cc-discover"></i></a></li>
-								<li><a href="#"><i class="fa fa-cc-amex"></i></a></li>
-							</ul>
-							<span class="copyright">
-								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-								Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-							</span>
-						</div>
-					</div>
-						<!-- /row -->
-				</div>
-				<!-- /container -->
-			</div>
+{{--			<div id="bottom-footer" class="section">--}}
+{{--				<div class="container">--}}
+{{--					<!-- row -->--}}
+{{--					<div class="row">--}}
+{{--						<div class="col-md-12 text-center">--}}
+{{--							<ul class="footer-payments">--}}
+{{--								<li><a href="#"><i class="fa fa-cc-visa"></i></a></li>--}}
+{{--								<li><a href="#"><i class="fa fa-credit-card"></i></a></li>--}}
+{{--								<li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>--}}
+{{--								<li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>--}}
+{{--								<li><a href="#"><i class="fa fa-cc-discover"></i></a></li>--}}
+{{--								<li><a href="#"><i class="fa fa-cc-amex"></i></a></li>--}}
+{{--							</ul>--}}
+{{--							<span class="copyright">--}}
+{{--								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->--}}
+{{--								Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>--}}
+{{--							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->--}}
+{{--							</span>--}}
+{{--						</div>--}}
+{{--					</div>--}}
+{{--						<!-- /row -->--}}
+{{--				</div>--}}
+{{--				<!-- /container -->--}}
+{{--			</div>--}}
 			<!-- /bottom footer -->
 		</footer>
 		<!-- /FOOTER -->
 
 		<!-- jQuery Plugins -->
-		<script src="js/jquery.min.js"></script>
-		<script src="js/bootstrap.min.js"></script>
-		<script src="js/slick.min.js"></script>
-		<script src="js/nouislider.min.js"></script>
-		<script src="js/jquery.zoom.min.js"></script>
-		<script src="js/main.js"></script>
+		<script src="/js/jquery.min.js"></script>
+		<script src="/js/bootstrap.min.js"></script>
+		<script src="/js/slick.min.js"></script>
+		<script src="/js/nouislider.min.js"></script>
+		<script src="/js/jquery.zoom.min.js"></script>
+		<script src="/js/main.js"></script>
 
 	</body>
 </html>
