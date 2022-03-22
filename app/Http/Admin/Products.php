@@ -127,7 +127,7 @@ class Products extends Section implements Initializable
                 AdminFormElement::text('description', 'Описание'),
                 AdminFormElement::text('code', 'URL код')
                 ,
-
+                AdminFormElement::text('price', 'Цена'),
                 AdminFormElement::html('<hr>'),
                 AdminFormElement::datetime('created_at')
                     ->setVisible(true)

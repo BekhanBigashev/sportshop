@@ -15,7 +15,7 @@ class CatalogController extends Controller
         } else {
             $products = Product::all();
         }
-
+        $products = count($products) > 0 ?$products : false;
         return view('catalog', compact('products'));
     }
 
