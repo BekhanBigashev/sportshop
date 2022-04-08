@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Services\TelegramService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,10 +10,18 @@ class Order extends Model
 {
     use HasFactory;
 
+    /**
+     * Товары в заказе
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function products(){
         return $this->belongsToMany(Product::class)->withPivot('count')->withTimestamps();
     }
 
+    /**
+     * Общая цена заказа
+     * @return int
+     */
     public function totalPrice(){
         $sum = 0;
         foreach($this->products as $product){
@@ -21,6 +30,10 @@ class Order extends Model
         return $sum;
     }
 
+    /**
+     * Количество товаров в заказе
+     * @return int
+     */
     public function TotalCountOfProducts(){
         $count = 0;
         foreach($this->products as $product){
@@ -28,9 +41,13 @@ class Order extends Model
         }
         return $count;
     }
-//    public function user(){
-//        return $this->belongsTo(User::class);
-//    }
+
+    /**
+     * Сохранение заказа
+     * @param $name
+     * @param $phone
+     * @return bool
+     */
     public function saveOrder($name, $phone){
         if ($this->status == 0){
             $this->name = $name;

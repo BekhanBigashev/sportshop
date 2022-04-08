@@ -5,7 +5,8 @@ use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Log\Logger;
-
+use Monolog\Handler\TelegramBotHandler;
+use App\Services\TelegramService;
 class BasketController extends Controller
 {
     public function basket()
@@ -24,13 +25,22 @@ class BasketController extends Controller
         if (is_null($orderId)) {
             return redirect()->route('index');
         }
+
         $order = Order::find($orderId);
         $success = $order->saveOrder($request->name, $request->phone);
 
         if ($success){
+            $message = "Новый заказа на Sportshop.kz\n";
+            $message .= "Имя: ".$order->name . "\n";
+            $message .= "E-mail: " . $order->email . "\n";
+            $message .= "Товары: \n";
+            foreach ($order->products as $product) {
+                $message .= $product->name . " X " . $product->pivot->count . "\n";
+            }
+            TelegramService::send($message);
             session()->forget('orderId');
             session()->flash('success', 'Ваш заказ успешно оформлен');
-            
+
         }else{
             session()->flash('warning', 'При обработке заказа произошла ошибка');
         }
@@ -86,6 +96,9 @@ class BasketController extends Controller
         }
         $product = Product::find($product_id);
         session()->flash('notice', 'Удален товар '. $product->name);
+        if (count($order->products)  == 0) {
+            session()->forget('orderId');
+        }
         return redirect()->route('basket');
     }
 }

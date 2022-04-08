@@ -43,7 +43,7 @@
 				<div class="container">
 					<ul class="header-links pull-left">
 						<li><a href="#"><i class="fa fa-phone"></i>8 707 382 64 25</a></li>
-						<li><a href="#"><i class="fa fa-envelope-o"></i> bigashev25@gmail.com</a></li>
+						<li><a href="#"><i class="fa fa-envelope-o"></i> sportshop@info.kz</a></li>
 						<li><a href="#"><i class="fa fa-map-marker"></i> Abay 1/2</a></li>
 					</ul>
 					<ul class="header-links pull-right">
@@ -115,10 +115,10 @@
                                                 @foreach($order->products as $product)
                                                     <div class="product-widget">
                                                         <div class="product-img">
-                                                            <img src="{{$product->image}}" alt="{{$product->name}}">
+                                                            <img src="/{{$product->image}}" alt="{{$product->name}}">
                                                         </div>
                                                         <div class="product-body">
-                                                            <h3 class="product-name"><a href="/{{$product->category->code}}/{{$product->code}}/">{{$product->name}}</a></h3>
+                                                            <h3 class="product-name"><a href="{{route('product',[$product->category->code, $product->code])}}">{{$product->name}}</a></h3>
                                                             <h4 class="product-price"><span class="qty">{{$product->pivot->count}}x</span>{{$product->price}} KZT</h4>
                                                         </div>
                                                     </div>
@@ -192,16 +192,10 @@
 				<div id="responsive-nav">
 					<!-- NAV -->
 					<ul class="main-nav nav navbar-nav">
-                    <li class="active"><a href="{{route('index')}}">Главная</a></li>
-                    <li><a href="{{route('catalog')}}">Каталог</a></li>
+                    <li><a href="{{route('index')}}">Главная</a></li>
+                    <li><a href="{{route('categories')}}">Каталог</a></li>
                      @foreach ($categories as $category)
                     <li><a href="{{route('category', $category->code)}}">{{$category->name}}</a>
-
-                       @if($category->childrens)
-                           @foreach($category->childrens as $children)
-                               <a href="" class="hidden">{{$children->name}}</a>
-                           @endforeach
-                        @endif
                     </li>
                     @endforeach
 
@@ -236,88 +230,17 @@
 								</ul>
 							</div>
 						</div>
-
-						<div class="col-md-3 col-xs-6">
-							<div class="footer">
-								<h3 class="footer-title">Категории</h3>
-								<ul class="footer-links">
-                                    @foreach ($categories as $category)
-                                    <li><a class="footer_main_link" href="{{route('category', $category->code)}}/">{{$category->name}}</a></li>
-                                        @if($category->childrens)
-                                            @foreach($category->childrens as $children)
-                                                <li><a class="footer_children_link" href="{{route('category', $children->code)}}/">{{$children->name}}</a></li>
-                                            @endforeach
-                                        @endif
-                                    @endforeach
-
-								</ul>
-							</div>
-						</div>
-
-{{--						<div class="clearfix visible-xs"></div>--}}
-
-{{--						<div class="col-md-3 col-xs-6">--}}
-{{--							<div class="footer">--}}
-{{--								<h3 class="footer-title">Information</h3>--}}
-{{--								<ul class="footer-links">--}}
-{{--									<li><a href="#">About Us</a></li>--}}
-{{--									<li><a href="#">Contact Us</a></li>--}}
-{{--									<li><a href="#">Privacy Policy</a></li>--}}
-{{--									<li><a href="#">Orders and Returns</a></li>--}}
-{{--									<li><a href="#">Terms & Conditions</a></li>--}}
-{{--								</ul>--}}
-{{--							</div>--}}
-{{--						</div>--}}
-
-{{--						<div class="col-md-3 col-xs-6">--}}
-{{--							<div class="footer">--}}
-{{--								<h3 class="footer-title">Service</h3>--}}
-{{--								<ul class="footer-links">--}}
-{{--									<li><a href="#">My Account</a></li>--}}
-{{--									<li><a href="#">View Cart</a></li>--}}
-{{--									<li><a href="#">Wishlist</a></li>--}}
-{{--									<li><a href="#">Track My Order</a></li>--}}
-{{--									<li><a href="#">Help</a></li>--}}
-{{--								</ul>--}}
-{{--							</div>--}}
-{{--						</div>--}}
 					</div>
 					<!-- /row -->
 				</div>
 				<!-- /container -->
 			</div>
 			<!-- /top footer -->
-
-			<!-- bottom footer -->
-{{--			<div id="bottom-footer" class="section">--}}
-{{--				<div class="container">--}}
-{{--					<!-- row -->--}}
-{{--					<div class="row">--}}
-{{--						<div class="col-md-12 text-center">--}}
-{{--							<ul class="footer-payments">--}}
-{{--								<li><a href="#"><i class="fa fa-cc-visa"></i></a></li>--}}
-{{--								<li><a href="#"><i class="fa fa-credit-card"></i></a></li>--}}
-{{--								<li><a href="#"><i class="fa fa-cc-paypal"></i></a></li>--}}
-{{--								<li><a href="#"><i class="fa fa-cc-mastercard"></i></a></li>--}}
-{{--								<li><a href="#"><i class="fa fa-cc-discover"></i></a></li>--}}
-{{--								<li><a href="#"><i class="fa fa-cc-amex"></i></a></li>--}}
-{{--							</ul>--}}
-{{--							<span class="copyright">--}}
-{{--								<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->--}}
-{{--								Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>--}}
-{{--							<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->--}}
-{{--							</span>--}}
-{{--						</div>--}}
-{{--					</div>--}}
-{{--						<!-- /row -->--}}
-{{--				</div>--}}
-{{--				<!-- /container -->--}}
-{{--			</div>--}}
-			<!-- /bottom footer -->
 		</footer>
 		<!-- /FOOTER -->
 
 		<!-- jQuery Plugins -->
+
 		<script src="/js/jquery.min.js"></script>
 		<script src="/js/bootstrap.min.js"></script>
 		<script src="/js/slick.min.js"></script>

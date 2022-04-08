@@ -12,7 +12,7 @@
                             <img src="{{$product->image}}" alt="{{$product->name}}">
                         </div>
                         <div class="name">
-                            <a href="/{{$product->category->code}}/{{$product->code}}/">{{$product->name}}</a>
+                            <a href="{{route('product',[$product->category->code, $product->code])}}">{{$product->name}}</a>
                         </div>
                         <div class="price">
                             {{$product->price}}

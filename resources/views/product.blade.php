@@ -11,26 +11,17 @@
             <!-- Product main img -->
             <div class="col-md-7">
                 <div id="product-main-img" class="">
-                    <img src="{{$product->image}}" alt="">
+                    <img src="/{{$product->image}}" alt="" width=400px" style="border: 1px solid gray">
                 </div>
             </div>
             <!-- /Product main img -->
-
-
 
             <!-- Product details -->
             <div class="col-md-5">
                 <div class="product-details">
                     <h2 class="product-name">{{$product->name}}</h2>
                     <div>
-{{--                        <div class="product-rating">--}}
-{{--                            <i class="fa fa-star"></i>--}}
-{{--                            <i class="fa fa-star"></i>--}}
-{{--                            <i class="fa fa-star"></i>--}}
-{{--                            <i class="fa fa-star"></i>--}}
-{{--                            <i class="fa fa-star-o"></i>--}}
-{{--                        </div>--}}
-                        <a class="review-link" href="#">10 Review(s) | Add your review</a>
+{{--                        <a class="review-link" href="#">{{$product->reviewsCount()}} отзывов) | Оставить свой отзыв</a>--}}
                     </div>
                     <div>
                         <h3 class="product-price">{{$product->price}} KZT
@@ -47,24 +38,23 @@
 {{--                                <option value="0">X</option>--}}
 {{--                            </select>--}}
 {{--                        </label>--}}
-                        <label>
-                            Цвет
-                            <select class="input-select">
-                                <option value="0">Red</option>
-                            </select>
-                        </label>
+
                     </div>
 
                     <div class="add-to-cart">
-                        <div class="qty-label">
+<!--                        <div class="qty-label">
                             Кол-во
                             <div class="input-number">
                                 <input type="number">
                                 <span class="qty-up">+</span>
                                 <span class="qty-down">-</span>
                             </div>
-                        </div>
-                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>В корзину</button>
+                        </div>-->
+                        <form method="post" action="{{route('basket-add', $product->id)}}">
+                            @csrf
+                            <button type="submit" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>В корзину</button>
+                        </form>
+
                     </div>
 
                     <ul class="product-btns">
@@ -74,7 +64,7 @@
 
                     <ul class="product-links">
                         <li>Категория:</li>
-                        <li><a href="/{{$product->category->code}}/">{{$product->category->name}}</a></li>
+                        <li><a href="/categories/{{$product->category->code}}/">{{$product->category->name}}</a></li>
                     </ul>
 
                     <ul class="product-links">
@@ -94,9 +84,9 @@
                 <div id="product-tab">
                     <!-- product tab nav -->
                     <ul class="tab-nav">
-                        <li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
-                        <li><a data-toggle="tab" href="#tab2">Details</a></li>
-                        <li><a data-toggle="tab" href="#tab3">Reviews (3)</a></li>
+                        <li class="active"><a data-toggle="tab" href="#tab1">Описание</a></li>
+
+                        <li><a data-toggle="tab" href="#tab3">Отзывы ({{$product->reviewsCount()}})</a></li>
                     </ul>
                     <!-- /product tab nav -->
 
@@ -106,7 +96,7 @@
                         <div id="tab1" class="tab-pane fade in active">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <p>{{$product->description}}</p>
                                 </div>
                             </div>
                         </div>
@@ -129,16 +119,19 @@
                                 <div class="col-md-3">
                                     <div id="rating">
                                         <div class="rating-avg">
-                                            <span>4.5</span>
+                                            <span>{{$product->rating()}}</span>
                                             <div class="rating-stars">
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-o"></i>
+                                                @for ($i = 0; $i < 5; $i++)
+                                                    @if($i < $product->rating())
+                                                        <i class="fa fa-star"></i>
+                                                    @else
+                                                        <i class="fa fa-star-o"></i>
+                                                    @endif
+                                                @endfor
+
                                             </div>
                                         </div>
-                                        <ul class="rating">
+<!--                                        <ul class="rating">
                                             <li>
                                                 <div class="rating-stars">
                                                     <i class="fa fa-star"></i>
@@ -204,7 +197,7 @@
                                                 </div>
                                                 <span class="sum">0</span>
                                             </li>
-                                        </ul>
+                                        </ul>-->
                                     </div>
                                 </div>
                                 <!-- /Rating -->
@@ -213,62 +206,66 @@
                                 <div class="col-md-6">
                                     <div id="reviews">
                                         <ul class="reviews">
+                                            @foreach ($product->reviews as $review)
                                             <li>
                                                 <div class="review-heading">
-                                                    <h5 class="name">John</h5>
-                                                    <p class="date">27 DEC 2018, 8:0 PM</p>
+                                                    <h5 class="name">{{$review->name}}</h5>
+                                                    <p class="date">{{$review->created_at}}</p>
                                                     <div class="review-rating">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star-o empty"></i>
+                                                        @for ($i = 0; $i < 5; $i++)
+                                                            @if($i < $review->score)
+                                                                <i class="fa fa-star"></i>
+                                                            @else
+                                                                <i class="fa fa-star-o empty"></i>
+                                                            @endif
+                                                        @endfor
                                                     </div>
                                                 </div>
                                                 <div class="review-body">
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
+                                                    <p>{{$review->text}}</p>
                                                 </div>
                                             </li>
-                                            <li>
-                                                <div class="review-heading">
-                                                    <h5 class="name">John</h5>
-                                                    <p class="date">27 DEC 2018, 8:0 PM</p>
-                                                    <div class="review-rating">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star-o empty"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="review-body">
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="review-heading">
-                                                    <h5 class="name">John</h5>
-                                                    <p class="date">27 DEC 2018, 8:0 PM</p>
-                                                    <div class="review-rating">
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star-o empty"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="review-body">
-                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>
-                                                </div>
-                                            </li>
+                                            @endforeach
+{{--                                            <li>--}}
+{{--                                                <div class="review-heading">--}}
+{{--                                                    <h5 class="name">John</h5>--}}
+{{--                                                    <p class="date">27 DEC 2018, 8:0 PM</p>--}}
+{{--                                                    <div class="review-rating">--}}
+{{--                                                        <i class="fa fa-star"></i>--}}
+{{--                                                        <i class="fa fa-star"></i>--}}
+{{--                                                        <i class="fa fa-star"></i>--}}
+{{--                                                        <i class="fa fa-star"></i>--}}
+{{--                                                        <i class="fa fa-star-o empty"></i>--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
+{{--                                                <div class="review-body">--}}
+{{--                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>--}}
+{{--                                                </div>--}}
+{{--                                            </li>--}}
+{{--                                            <li>--}}
+{{--                                                <div class="review-heading">--}}
+{{--                                                    <h5 class="name">John</h5>--}}
+{{--                                                    <p class="date">27 DEC 2018, 8:0 PM</p>--}}
+{{--                                                    <div class="review-rating">--}}
+{{--                                                        <i class="fa fa-star"></i>--}}
+{{--                                                        <i class="fa fa-star"></i>--}}
+{{--                                                        <i class="fa fa-star"></i>--}}
+{{--                                                        <i class="fa fa-star"></i>--}}
+{{--                                                        <i class="fa fa-star-o empty"></i>--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
+{{--                                                <div class="review-body">--}}
+{{--                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>--}}
+{{--                                                </div>--}}
+{{--                                            </li>--}}
                                         </ul>
-                                        <ul class="reviews-pagination">
+<!--                                        <ul class="reviews-pagination">
                                             <li class="active">1</li>
                                             <li><a href="#">2</a></li>
                                             <li><a href="#">3</a></li>
                                             <li><a href="#">4</a></li>
                                             <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                                        </ul>
+                                        </ul>-->
                                     </div>
                                 </div>
                                 <!-- /Reviews -->
@@ -276,12 +273,19 @@
                                 <!-- Review Form -->
                                 <div class="col-md-3">
                                     <div id="review-form">
-                                        <form class="review-form">
-                                            <input class="input" type="text" placeholder="Your Name">
-                                            <input class="input" type="email" placeholder="Your Email">
-                                            <textarea class="input" placeholder="Your Review"></textarea>
+                                        <form method="post" action="{{route('review.add', $product->id)}}" class="review-form">
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{$product->id}}">
+
+
+                                            <input @auth value="{{$user->name}}"@endauth name="name" class="input" type="text" placeholder="Ваше имя">
+                                            @guest
+
+                                            <input name="email" class="input" type="email" placeholder="Ваш E-mail">
+                                            @endguest
+                                            <textarea name="text" class="input" placeholder="Ваш отзыв"></textarea>
                                             <div class="input-rating">
-                                                <span>Your Rating: </span>
+                                                <span>Ваша оценка: </span>
                                                 <div class="stars">
                                                     <input id="star5" name="rating" value="5" type="radio"><label for="star5"></label>
                                                     <input id="star4" name="rating" value="4" type="radio"><label for="star4"></label>
@@ -290,7 +294,8 @@
                                                     <input id="star1" name="rating" value="1" type="radio"><label for="star1"></label>
                                                 </div>
                                             </div>
-                                            <button class="primary-btn">Submit</button>
+                                            <input type="hidden" name="score" value="3">
+                                            <button type="submit" class="primary-btn">Отправить</button>
                                         </form>
                                     </div>
                                 </div>

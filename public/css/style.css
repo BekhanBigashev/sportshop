@@ -2288,11 +2288,27 @@ textarea.input {
 }
 
 .catalog .categories-and-filter{
-    height: 500px;
     background-color: #f6f6f6;
-
-    padding: 5px 0px 0px 27px;
-
+    padding: 15px;
+}
+.catalog .parent-category{
+    font-size: 17px;
+    margin: 10px auto;
+}
+.catalog .children_category_link{
+    margin-bottom: 5px;
+}
+.catalog .children_category_link a {
+    color: #1ab744;
+}
+.catalog .children_category_link:before {
+    content: 'o';
+    padding: 0px 9px 0px 0px;
+}
+.catalog #catalog-submit-button{
+    margin: 15px auto;
+    background-color: #1ab744;
+    color: white;
 }
 .catalog .products{
     display: flex;
@@ -2337,4 +2353,32 @@ textarea.input {
 .catalog .children_category_link{
     margin-left: 10px;
 }
+.category-slider .slider-item{
+    height: 400px;
+    display: flex;
+    justify-content: space-between;
+    padding: 50px 0px;
 
+}
+.category-slider .slider-item .title {
+    font-size: 44px;
+    /*padding-left: 64px;*/
+    /*padding-top: 30px;*/
+}
+.category-slider .slider-item .description {
+    font-size: 20px;
+    margin: 10px 0px 30px 0px;
+}
+.category-slider .slider-item img {
+    max-width: 570px;
+    max-height: 300px;
+}
+.category-slider .wears{
+    background-color: red;
+}
+.category-slider .trenagers{
+    background-color: green;
+}
+.category-slider .inventory{
+    background-color: yellow;
+}
