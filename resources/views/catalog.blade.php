@@ -1,5 +1,5 @@
 @extends('layouts/base')
-@section('title', 'Главная')
+@section('title', 'Каталог - ' .$category->name)
 
 @section('content')
 
@@ -16,7 +16,7 @@
                             </select>
                             <label>Порядок</label>
                             <select class="form-control d-inline w-25 mr-4" name="order" id="catalog-order-select">
-                                <option value="0">Выберите</option>
+                                <option>Выберите</option>
                                 <option value="asc">по возрастанию</option>
                                 <option value="desc">По убыванию</option>
                             </select>
@@ -34,25 +34,16 @@
                 <div class="products">
                     @if($products)
                         @foreach($products as $product)
-                            <div class="item ">
-                                <a href="{{route('product', [$product->category->code, $product->code ])}}"><img src="/{{$product->image}}" alt=""></a>
-                                <p class="item-name"><a href="{{route('product', [$product->category->code, $product->code ])}}/">{{$product->name}}</a></p>
-                                <p class="item-price">{{$product->price}} тг</p>
-                                <div class="product-rating" style="display: flex; justify-content: center;color: #1ab744;">
-                                    @for ($i = 0; $i < 5; $i++)
-                                        @if($i < $product->rating())
-                                            <i class="fa fa-star"></i>
-                                        @else
-                                            <i class="fa fa-star-o"></i>
-                                        @endif
-                                    @endfor
-                                </div>
-                            </div>
+                            @include('includes/catalog-item')
                         @endforeach
                     @else
                         @include('includes/products_not_found')
                     @endif
                 </div>
+                <div class="pagination-container">
+                    {{$products->links()}}
+                </div>
+
             </div>
         </div>
 

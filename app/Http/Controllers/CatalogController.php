@@ -42,13 +42,13 @@ class CatalogController extends Controller
      * @param $product_code
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function product($category,$product_code)
+    public function product($category,$productId)
     {
-        $product = Product::where('code',$product_code)->first();
+        $product = Product::where('id',$productId)->first();
         return view('product', ['product' => $product]);
     }
 
-    public function category(Request $request, $code)
+    public function catalog(Request $request, $code)
     {
         $category = Category::where('code',$code)->first();
         if ($category->parent_id != 0) {
@@ -65,9 +65,9 @@ class CatalogController extends Controller
                     $builder->orderBy('name', $request->order);
                 }
             }
-            $products = $builder->get();
+            $products = $builder->paginate(9)->withQueryString();
 
-            return view('catalog', ['products' => $products, 'params' => $request->all()]);
+            return view('catalog', ['category' => $category, 'products' => $products]);//, 'params' => $request->all()
         } else {
             return view('category', ['category'=>$category]);
         }

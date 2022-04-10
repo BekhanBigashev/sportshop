@@ -48,10 +48,11 @@ class Order extends Model
      * @param $phone
      * @return bool
      */
-    public function saveOrder($name, $phone){
+    public function saveOrder($data){
         if ($this->status == 0){
-            $this->name = $name;
-            $this->phone = $phone;
+            $this->name = $data['name'];
+            $this->phone = $data['phone'];
+            $this->email = $data['email'];
             $this->status = 1;
             $this->save();
             return true;
