@@ -49,6 +49,7 @@
 					<ul class="header-links pull-right">
 
                         @guest
+                            <li><a href="{{ route('register') }}"><i class="fa fa-user-o"></i>Регистрация</a></li>
                             <li><a href="{{ route('login') }}"><i class="fa fa-user-o"></i>Войти</a></li>
                         @endguest
                         @auth
@@ -80,14 +81,9 @@
 						<!-- SEARCH BAR -->
 						<div class="col-md-6">
 							<div class="header-search">
-								<form>
-									<select class="input-select">
-										<option value="0"><a href=" {{ route('categories')}} ">Категории</a> </option>
-										<option value="1">Category 01</option>
-										<option value="1">Category 02</option>
-									</select>
-									<input class="input" placeholder="">
-									<button class="search-btn">Поиск</button>
+								<form action="{{route('search')}}" method="get">
+									<input name="query" class="input" placeholder="">
+									<button type="submit" class="search-btn">Поиск</button>
 								</form>
 							</div>
 						</div>
@@ -195,7 +191,7 @@
                     <li><a href="{{route('index')}}">Главная</a></li>
                     <li><a href="{{route('categories')}}">Каталог</a></li>
                      @foreach ($categories as $category)
-                    <li><a href="{{route('category', $category->code)}}">{{$category->name}}</a>
+                    <li><a href="{{route('catalog', $category->code)}}">{{$category->name}}</a>
                     </li>
                     @endforeach
 

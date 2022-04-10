@@ -12,7 +12,7 @@
                             <div class="description">
                                 {{$category->description}}
                             </div>
-                            <a class="btn btn-primary" href="{{route('category', $category->code)}}">Посмотреть</a>
+                            <a class="btn btn-primary" href="{{route('catalog', $category->code)}}">Посмотреть</a>
                         </div>
                         <div class="right">
                             <img src="{{$category->image}}" alt="">

@@ -26,8 +26,12 @@ Route::post('/basket/add/{id}/', 'App\Http\Controllers\BasketController@basketAd
 Route::post('/basket/remove/{id}/', 'App\Http\Controllers\BasketController@basketRemove')->name('basket-remove');
 Route::post('/basket/confirm/', 'App\Http\Controllers\BasketController@basketConfirm')->name('basket-confirm');
 
-Route::get('/catalog/{category}/',"App\Http\Controllers\CatalogController@category")->name('category');
-Route::get('/catalog/{category}/{product_code}/', "App\Http\Controllers\CatalogController@product")->name('product');
+Route::get('/catalog/{category}/',"App\Http\Controllers\CatalogController@catalog")->name('catalog');
+Route::get('/catalog/{category}/{product_id}/', "App\Http\Controllers\CatalogController@product")->name('product');
 
 Route::post('/review/add/{product_id}', 'App\Http\Controllers\ReviewController@add')->name('review.add');
 
+Route::get('/search/', "App\Http\Controllers\MainController@search")->name('search');
+
+
+Route::get('fill_db_data/{category}', "App\Http\Controllers\MainController@fill_db_data")->name('fill_db_data');

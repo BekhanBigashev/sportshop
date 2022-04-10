@@ -5,6 +5,7 @@ namespace App\Providers;
 
 use App\Models\Category;
 use App\Models\Order;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -44,6 +45,9 @@ class AppServiceProvider extends ServiceProvider
             $view->with('user', $user);
             $view->with('categories', $categories);
             $view->with('order', $order);
+
         });
+
+        Paginator::useBootstrap();
     }
 }
