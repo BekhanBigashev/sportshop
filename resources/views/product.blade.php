@@ -84,16 +84,15 @@
                 <div id="product-tab">
                     <!-- product tab nav -->
                     <ul class="tab-nav">
-                        <li class="active"><a data-toggle="tab" href="#tab1">Описание</a></li>
-
-                        <li><a data-toggle="tab" href="#tab3">Отзывы ({{$product->reviewsCount()}})</a></li>
+                        <li class="active"><a data-toggle="tab" href="#tab3">Отзывы ({{$product->reviewsCount()}})</a></li>
+                        <li><a data-toggle="tab" href="#tab1">Описание</a></li>
                     </ul>
                     <!-- /product tab nav -->
 
                     <!-- product tab content -->
                     <div class="tab-content">
                         <!-- tab1  -->
-                        <div id="tab1" class="tab-pane fade in active">
+                        <div id="tab1" class="tab-pane fade in ">
                             <div class="row">
                                 <div class="col-md-12">
                                     <p>{{$product->description}}</p>
@@ -113,7 +112,7 @@
                         <!-- /tab2  -->
 
                         <!-- tab3  -->
-                        <div id="tab3" class="tab-pane fade in">
+                        <div id="tab3" class="tab-pane fade in active">
                             <div class="row">
                                 <!-- Rating -->
                                 <div class="col-md-3">
@@ -281,9 +280,9 @@
                                             <input @auth value="{{$user->name}}"@endauth name="name" class="input" type="text" placeholder="Ваше имя">
                                             @guest
 
-                                            <input name="email" class="input" type="email" placeholder="Ваш E-mail">
+                                            <input required name="email" class="input" type="email" placeholder="Ваш E-mail">
                                             @endguest
-                                            <textarea name="text" class="input" placeholder="Ваш отзыв"></textarea>
+                                            <textarea required name="text" class="input" placeholder="Ваш отзыв"></textarea>
                                             <div class="input-rating">
                                                 <span>Ваша оценка: </span>
                                                 <div class="stars">

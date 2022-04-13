@@ -11,7 +11,7 @@
         </div>
         <div class="product-body">
             <p class="product-category">{{$product->category->name}}</p>
-            <h3 class="product-name"><a href="{{route('product', [$product->category->code, $product->code ])}}/">{{$product->name}}</a></h3>
+            <h3 class="product-name"><a href="{{route('product', [$product->category->code, $product->id ])}}/">{{$product->name}}</a></h3>
             <h4 class="product-price">{{$product->price}} <del class="product-old-price"></del></h4>
             <div class="product-rating">
                 <i class="fa fa-star"></i>
