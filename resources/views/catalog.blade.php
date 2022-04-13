@@ -10,13 +10,13 @@
                             <label>Сортировать по</label>
                             <label for=""></label>
                             <select class="form-control d-inline w-25 mr-4" name="sort" id="catalog-sort-select">
-                                <option value="0">Выберите</option>
+                                <option value="">Выберите</option>
                                 <option value="price">цене</option>
                                 <option value="name">Названию</option>
                             </select>
                             <label>Порядок</label>
                             <select class="form-control d-inline w-25 mr-4" name="order" id="catalog-order-select">
-                                <option>Выберите</option>
+                                <option value="">Выберите</option>
                                 <option value="asc">по возрастанию</option>
                                 <option value="desc">По убыванию</option>
                             </select>

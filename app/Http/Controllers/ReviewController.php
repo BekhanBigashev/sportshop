@@ -9,11 +9,17 @@ class ReviewController extends Controller
 {
     public function add(Request $request)
     {
+        $validated = $request->validate([
+            'name' => 'required|min:3|max:25',
+            'text' => 'required|min:3|max:250',
+            'score' => 'required',
+            'product_id' => 'required',
+        ]);
         $review = new Review;
-        $review->name = $request->input('name');
-        $review->product_id = $request->input('product_id');
-        $review->text = $request->input('text');
-        $review->score = $request->input('score');
+        $review->name = $validated['name'];
+        $review->product_id = $validated['product_id'];
+        $review->text = $validated['text'];
+        $review->score = $validated['score'];
         $review->save();
         return redirect()->back();
     }

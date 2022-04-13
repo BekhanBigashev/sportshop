@@ -24,6 +24,11 @@
  		<!-- Font Awesome Icon -->
  		<link rel="stylesheet" href="/css/font-awesome.min.css">
 
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+
  		<!-- Custom stlylesheet -->
  		<link type="text/css" rel="stylesheet" href="/css/style.css"/>
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -42,9 +47,9 @@
 			<div id="top-header">
 				<div class="container">
 					<ul class="header-links pull-left">
-						<li><a href="#"><i class="fa fa-phone"></i>8 707 382 64 25</a></li>
+						<li><a href="#"><i class="fa fa-phone phone"></i>8 707 382 64 25</a></li>
 						<li><a href="#"><i class="fa fa-envelope-o"></i> sportshop@info.kz</a></li>
-						<li><a href="#"><i class="fa fa-map-marker"></i> Abay 1/2</a></li>
+						<li><a href="#"><i class="fa fa-map-marker map-marker"></i> Abay 1/2</a></li>
 					</ul>
 					<ul class="header-links pull-right">
 
@@ -82,7 +87,7 @@
 						<div class="col-md-6">
 							<div class="header-search">
 								<form action="{{route('search')}}" method="get">
-									<input name="query" class="input" placeholder="">
+									<input value="{{request('query')}}" id="search-input" name="query" class="input" placeholder="">
 									<button type="submit" class="search-btn">Поиск</button>
 								</form>
 							</div>
@@ -114,7 +119,7 @@
                                                             <img src="/{{$product->image}}" alt="{{$product->name}}">
                                                         </div>
                                                         <div class="product-body">
-                                                            <h3 class="product-name"><a href="{{route('product',[$product->category->code, $product->code])}}">{{$product->name}}</a></h3>
+                                                            <h3 class="product-name"><a href="{{route('product',[$product->category->code, $product->id])}}">{{$product->name}}</a></h3>
                                                             <h4 class="product-price"><span class="qty">{{$product->pivot->count}}x</span>{{$product->price}} KZT</h4>
                                                         </div>
                                                     </div>
@@ -126,15 +131,16 @@
 										<div class="cart-summary">
 											<h5>SUBTOTAL: {{$order->totalPrice()}} KZT</h5>
 										</div>
+                                            <div class="cart-btns">
+                                                <a href="{{ route('basket') }}">В корзину</a>
+                                                <a href="{{ route('basket-place') }}">Оформить <i class="fa fa-arrow-circle-right"></i></a>
+                                            </div>
                                         @else
                                             <div class="cart-summary">
-                                                <h5>Корзина пуста</h5>
+                                                <h5>Корзина пустая</h5>
                                             </div>
                                         @endif
-										<div class="cart-btns">
-											<a href="{{ route('basket') }}">В корзину</a>
-											<a href="{{ route('basket-place') }}">Оформить <i class="fa fa-arrow-circle-right"></i></a>
-										</div>
+
 									</div>
 								</div>
 								<!-- /Cart -->
