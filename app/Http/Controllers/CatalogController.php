@@ -65,7 +65,7 @@ class CatalogController extends Controller
                     $builder->orderBy('name', $request->order);
                 }
             }
-            $products = $builder->paginate(9)->withQueryString();
+            $products = $builder->paginate(8)->withQueryString();
 
             return view('catalog', ['category' => $category, 'products' => $products]);//, 'params' => $request->all()
         } else {

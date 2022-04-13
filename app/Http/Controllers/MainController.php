@@ -21,7 +21,7 @@ class MainController extends Controller
     public function search(Request $request)
     {
         $query = $request->input('query');
-        $products = Product::where('name', 'like', "%{$query}%")->paginate(1)->withQueryString();
+        $products = Product::where('name', 'like', "%{$query}%")->paginate(10)->withQueryString();
         return view('search', ['products' => $products]);
     }
 
