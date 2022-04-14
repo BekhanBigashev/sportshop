@@ -19,7 +19,6 @@ class CreateReviewsTable extends Migration
             $table->integer('product_id')->unsigned()->nullable();
             $table->string('text');
             $table->string('name');
-            $table->integer('user_id')->unsigned()->nullable();
             $table->integer('score');
             $table->timestamps();
 
@@ -28,10 +27,6 @@ class CreateReviewsTable extends Migration
                 ->on('products')
                 ->onDelete('cascade');
 
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
         });
     }
 
