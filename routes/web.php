@@ -35,3 +35,6 @@ Route::get('/search/', "App\Http\Controllers\MainController@search")->name('sear
 
 
 Route::get('fill_db_data/{category}', "App\Http\Controllers\MainController@fill_db_data")->name('fill_db_data');
+
+
+Route::get('/artisan-migrate', \App\Http\Controllers\ArtisanController::class);
