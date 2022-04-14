@@ -13,24 +13,25 @@ class CreateReviewsTable extends Migration
      */
     public function up()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('product_id')->unsigned()->nullable();
+            $table->integer('product_id')->unsigned()->nullable();
             $table->string('text');
             $table->string('name');
-            $table->bigInteger('user_id')->unsigned()->nullable();
+            $table->integer('user_id')->unsigned()->nullable();
             $table->integer('score');
             $table->timestamps();
 
             $table->foreign('product_id')
                 ->references('id')
                 ->on('products')
-                ->nullOnDelete();
+                ->onDelete('cascade');
 
             $table->foreign('user_id')
                 ->references('id')
                 ->on('users')
-                ->nullOnDelete();
+                ->onDelete('cascade');
         });
     }
 
