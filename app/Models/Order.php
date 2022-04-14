@@ -48,12 +48,21 @@ class Order extends Model
      * @param $phone
      * @return bool
      */
-    public function saveOrder($data){
+    public function saveOrder($validated){
         if ($this->status == 0){
-            $this->name = $data['name'];
-            $this->phone = $data['phone'];
-            $this->email = $data['email'];
+            $this->name = $validated['name'];
+            $this->phone = $validated['phone'];
+            $this->email = $validated['email'];
             $this->status = 1;
+            $this->delivery = $validated['delivery'];
+            if ($validated['delivery'] == 'pickup') {
+                $this->delivery_point_id = $validated['delivery_point_id'];
+            } elseif ($validated['delivery'] == 'delivery') {
+                $this->adress = $validated['adress'];
+            } else {
+                return false;
+            }
+
             $this->save();
             return true;
         }else{

@@ -211,3 +211,31 @@ $('#catalog-filter-clean').click(function (event){
     $('#catalog-order-select option[value=0]').prop('selected', true);
     window.location.href=window.location.href.split('?')[0]
 });
+
+$('#delivery').change(function (event) {
+    changedValue = event.target.value;
+    if (changedValue == 'pickup') {
+        $('#deliveryPointSelect').removeClass('display-none');
+        $('#adressInput').addClass('display-none');
+    } else if (changedValue == 'delivery') {
+        $('#adressInput').removeClass('display-none');
+        $('#deliveryPointSelect').addClass('display-none');
+    }
+});
+
+$('input[type=radio][name=delivery]').change(function() {
+    if (this.value == 'pickup') {
+        $('#deliveryPointSelect').removeClass('display-none');
+        $('#adressInput').addClass('display-none');
+
+        $('select[name=delivery_point_id]').attr('required', true);
+        $('input[name=adress]').removeAttr('required');
+    }
+    else if (this.value == 'delivery') {
+        $('#deliveryPointSelect').addClass('display-none');
+        $('#adressInput').removeClass('display-none');
+
+        $('input[name=adress]').attr('required', true);
+        $('select[name=delivery_point_id]').removeAttr('required');
+    }
+});

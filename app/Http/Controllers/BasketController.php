@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\DeliveryPoint;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -21,27 +22,24 @@ class BasketController extends Controller
     }
 
     public function basketConfirm(Request $request){
-        $validated = $request->validate([
-            'name' => 'required|min:4|max:25',
-            'email' => 'required|email',
-            'phone' => 'required',
-        ]);
-
         $orderId = session('orderId');
         if (is_null($orderId)) {
             return redirect()->route('index');
         }
-
+        $validated = $request->validate([
+            'name' => 'required|min:4|max:25',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'delivery' => 'required|in:pickup,delivery',
+            'delivery_point_id' => 'nullable',
+            'adress' => 'nullable|min:5|max:25',
+        ]);
         $order = Order::find($orderId);
-
         $success = $order->saveOrder($validated);
-
         if ($success){
             TelegramService::newOrder($order);
-
             session()->forget('orderId');
             session()->flash('success', 'Ваш заказ успешно оформлен');
-
         }else{
             session()->flash('warning', 'При обработке заказа произошла ошибка');
         }
@@ -55,7 +53,8 @@ class BasketController extends Controller
             return redirect()->route('index');
         }
         $order = Order::find($orderId);
-        return view('order', compact('order'));
+        $deliveryPoints = DeliveryPoint::all();
+        return view('order', ['order' => $order, 'deliveryPoints' => $deliveryPoints]);
     }
 
     public function basketAdd($product_id)
