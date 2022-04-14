@@ -54,7 +54,12 @@ class Product extends Model
      */
     public function existInBasket()
     {
-        return Order::find(session('orderId'))->products->contains($this->id);
+        $orderId = session('orderId');
+        if (!is_null($orderId)) {
+            return Order::find($orderId)->products->contains($this->id);
+        }
+        return false;
+
     }
 
     /**
