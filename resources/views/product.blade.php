@@ -52,7 +52,8 @@
                         </div>-->
                         <form method="post" action="{{route('basket-add', $product->id)}}">
                             @csrf
-                            <button type="submit" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>В корзину</button>
+                            @if($product->existInBasket()) @else @endif
+                            <button type="submit" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>@if($product->existInBasket()) Добавить еще @else В корзину @endif</button>
                         </form>
 
                     </div>
@@ -296,6 +297,7 @@
                                             <input type="hidden" name="score" value="3">
                                             <button type="submit" class="primary-btn">Отправить</button>
                                         </form>
+{{--                                        {{$product->countOfOrders()}}--}}
                                     </div>
                                 </div>
                                 <!-- /Review Form -->
