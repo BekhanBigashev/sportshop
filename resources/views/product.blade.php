@@ -53,13 +53,13 @@
                         <form method="post" action="{{route('basket-add', $product->id)}}">
                             @csrf
                             @if($product->existInBasket()) @else @endif
-                            <button type="submit" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>@if($product->existInBasket()) Добавить еще @else В корзину @endif</button>
+                            <button data-href="{{route('basket.ajax.add', $product->id)}}" type="submit" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>@if($product->existInBasket()) Добавить еще @else В корзину @endif</button>
                         </form>
 
                     </div>
 
                     <ul class="product-btns">
-                        <li><a href="#"><i class="fa fa-heart-o"></i> В желаемое</a></li>
+<!--                        <li><a href="#"><i class="fa fa-heart-o"></i> В желаемое</a></li>-->
                         {{--<li><a href="#"><i class="fa fa-exchange"></i> add to compare</a></li>--}}
                     </ul>
 
@@ -278,7 +278,7 @@
                                             <input type="hidden" name="product_id" value="{{$product->id}}">
 
 
-                                            <input @auth value="{{$user->name}}"@endauth name="name" class="input" type="text" placeholder="Ваше имя">
+                                            <input @auth value="{{$user->name}}" @endauth name="name" class="input" type="text" placeholder="Ваше имя">
                                             @guest
 
                                             <input required name="email" class="input" type="email" placeholder="Ваш E-mail">

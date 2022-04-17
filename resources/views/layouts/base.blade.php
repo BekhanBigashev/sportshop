@@ -4,6 +4,7 @@
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="csrf-token" content="{{ csrf_token() }}" />
 		 <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
 		<title>@yield('title')</title>
@@ -33,11 +34,9 @@
  		<link type="text/css" rel="stylesheet" href="/css/style.css"/>
 		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
 		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		<!--[if lt IE 9]>
-		  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-		  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-		<![endif]-->
+
+        <link href="/css/toast.min.css" rel="stylesheet">
+        <script src="/js/toast.min.js"></script>
 
     </head>
 	<body>
@@ -166,7 +165,7 @@
 		<!-- /NAVIGATION -->
 		<div class="section">
 			<div class="container">
-			<div class="content">
+			<div class="row">
 			@yield('content')
 			</div></div></div>
         <!-- NEWSLETTER -->

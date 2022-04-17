@@ -1,5 +1,5 @@
 @extends('layouts/base')
-@section('title', 'Категории')
+@section('title', 'Категорииs')
 
 @section('content')
 
@@ -7,7 +7,7 @@
     @if($category->parent_id != 0)
     <div class="row">
         @foreach ($category->products as $product)
-            @include('includes/product_card')
+            @include('includes/catalog_item')
         @endforeach
     </div>
     @else

@@ -1,6 +1,6 @@
 <!-- Cart -->
 <div class="dropdown">
-    <a  class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+    <a href="{{ route('basket') }}" > <!--class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true"-->
         <i class="fa fa-shopping-cart"></i>
         <span>Корзина</span>
         @if($order)
@@ -8,7 +8,7 @@
         @endif
 
     </a>
-    <div class="cart-dropdown">
+<!--    <div class="cart-dropdown">
         @if($order)
             <div class="cart-list">
 
@@ -42,6 +42,6 @@
             </div>
         @endif
 
-    </div>
+    </div>-->
 </div>
 <!-- /Cart -->

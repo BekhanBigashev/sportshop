@@ -3,7 +3,7 @@
 
 @section('content')
 
-        <div class="d-flex catalog justify-content-between">
+        <div class="catalog ">
             <div class="col-md-3">
                 <div class="categories-and-filter">
                         <form method="GET">
@@ -49,9 +49,9 @@
                         <li><a href="#">3</a></li>
                         <li><a href="#">4</a></li>
                         <li><a href="#"><i class="fa fa-angle-right"></i></a></li>-->
-                        <div class="pagination-container">
+
                             {{$products->links()}}
-                        </div>
+
                     </ul>
                 </div>
                 <!-- /store bottom filter -->

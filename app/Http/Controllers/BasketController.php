@@ -60,20 +60,7 @@ class BasketController extends Controller
 
     public function basketAdd($product_id)
     {
-        $orderId = session('orderId');
-        if (is_null($orderId)) {
-            $order = Order::create();
-            session(['orderId' => $order->id]);
-        }else{
-            $order = Order::find($orderId);
-        }
-        if ($order->products->contains($product_id)) {
-            $pivotRow = $order->products()->where('product_id', $product_id)->first()->pivot;
-            $pivotRow->count++;
-            $pivotRow->update();
-        }else{
-            $order->products()->attach($product_id);
-        }
+        Order::addToBasket($product_id);
         $product = Product::find($product_id);
         session()->flash('success', 'Добавлен товар '. $product->name);
         return redirect()->back();
@@ -102,29 +89,5 @@ class BasketController extends Controller
         return redirect()->back();
     }
 
-    public function apiRemove($product_id)
-    {
-        /*1 - товар удален
-          2 - товар декрементирован
-          3- ошибка
-*/
-        $orderId = session('orderId');
-        if (is_null($orderId)) {
-            return Response::json(['status' => 3]);
-        }
-        $order = Order::find($orderId);
-        if ($order->products->contains($product_id)) {
-            $pivotRow = $order->products()->where('product_id', $product_id)->first()->pivot;
-            if ($pivotRow->count < 2){
-                $order->products()->detach($product_id);
 
-                return Response::json(['status' =>1]);
-            }else{
-                $pivotRow->count--;
-                $pivotRow->update();
-                session()->forget('orderId');
-                return Response::json(['status' => 2]);
-            }
-        }
-    }
 }

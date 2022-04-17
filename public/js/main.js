@@ -47,7 +47,7 @@
 	});
 
     // Catalog Ajax
-    $('#catalog-submit-button').on('click', function (e) {
+/*    $('#catalog-submit-button').on('click', function (e) {
         $.ajax({
             url: "/json-catalog/",
             method: 'POST',
@@ -57,7 +57,7 @@
         }).done(function(json) {
             alert(json);
         });
-    });
+    });*/
 	// Products Widget Slick
 	$('.products-widget-slick').each(function() {
 		var $this = $(this),
@@ -195,31 +195,42 @@ $('input[name=rating]').click(function (event) {
     $('input[name=score]').val(event.target.value);
 });
 
-function removeCartItem(element, productId) {
-    console.log('delete');
+
+$('.add-to-cart-btn').click(function (event){
+    event.preventDefault();
     $.ajax({
-        url: '/api/basket/remove/'+productId,         /* Куда пойдет запрос */
-        method: 'post',             /* Метод передачи (post или get) */
-        dataType: 'json',          /* Тип данных в ответе (xml, json, script, html). */
-        data: {},     /* Параметры передаваемые в запросе. */
-        success: function(data){   /* функция которая будет выполнена после успешного запроса.  */
-            deleteStatus = data.status;
-            basketCountCircle = $('#basket-count');
-            basketCount = basketCountCircle.text();
-            if (deleteStatus == 2) {
-                countSpan = $(element).parent().find('.qty');
-                count = countSpan.text();
-                newCount = count-1;
-                countSpan.text(newCount);
-            } else if (deleteStatus == 1) {
-                $(element).parent().remove();
+        url: $(this).attr('data-href'),
+        method:'post',
+        dataType: 'JSON',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(data) {
+            $.ajax({
+                url: '/basket/ajax/count/',
+                method:'post',
+                dataType: 'JSON',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(response) {
+                    $('#basket-count').html(response.count);
+                }
+            });
 
-            }
-            basketCountCircle.text(basketCount-1)
-
+            new Toast({
+                title: data.name,
+                text: 'Добавлен в корзину',
+                theme: 'success',
+                autohide: true,
+                interval: 10000
+            });
+            event.target.innerText = 'Добавить еще';
         }
     });
-}
+    return false;
+});
+
 
 function getUrlParams(url = location.search){
     var regex = /[?&]([^=#]+)=([^&#]*)/g, params = {}, match;
@@ -241,24 +252,25 @@ $('#catalog-filter-clean').click(function (event){
 
 $('#delivery').change(function (event) {
     changedValue = event.target.value;
-    if (changedValue == 'pickup') {
+    if (changedValue === 'pickup') {
         $('#deliveryPointSelect').removeClass('display-none');
         $('#adressInput').addClass('display-none');
-    } else if (changedValue == 'delivery') {
+    } else if (changedValue === 'delivery') {
         $('#adressInput').removeClass('display-none');
         $('#deliveryPointSelect').addClass('display-none');
     }
 });
 
-$('input[type=radio][name=delivery]').change(function() {
-    if (this.value == 'pickup') {
+$('input[type=radio][name=delivery]').change(function(event) {
+    changedValue = event.target.value;
+    if (changedValue === 'pickup') {
         $('#deliveryPointSelect').removeClass('display-none');
         $('#adressInput').addClass('display-none');
 
         $('select[name=delivery_point_id]').attr('required', true);
         $('input[name=adress]').removeAttr('required');
     }
-    else if (this.value == 'delivery') {
+    else if (changedValue === 'delivery') {
         $('#deliveryPointSelect').addClass('display-none');
         $('#adressInput').removeClass('display-none');
 

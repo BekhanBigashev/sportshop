@@ -31,9 +31,9 @@
             </div>-->
         </div>
         <div class="add-to-cart">
-            <form method="post" action="{{route('basket-add', $product->id)}}">
+            <form onsubmit="addToBasket({{$product->id}}, this)">
                 @csrf
-                <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>в корзину</button>
+                <button data-href="{{route('basket.ajax.add', $product->id)}}" type="submit" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>в корзину</button>
             </form>
 
         </div>
