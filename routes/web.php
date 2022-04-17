@@ -23,8 +23,10 @@ Route::match(['GET', 'POST'],'/json-catalog/', "App\Http\Controllers\CatalogCont
 Route::get('/basket/', 'App\Http\Controllers\BasketController@basket')->name('basket');
 Route::get('/basket/place/', 'App\Http\Controllers\BasketController@basketPlace')->name('basket-place');
 Route::post('/basket/add/{id}/', 'App\Http\Controllers\BasketController@basketAdd')->name('basket-add');
+Route::post('/basket/ajax/add/{id}/', 'App\Http\Controllers\AjaxController@basketAdd')->name('basket.ajax.add');
 Route::post('/basket/remove/{id}/', 'App\Http\Controllers\BasketController@basketRemove')->name('basket-remove');
 Route::post('/basket/confirm/', 'App\Http\Controllers\BasketController@basketConfirm')->name('basket-confirm');
+Route::post('/basket/ajax/count/', 'App\Http\Controllers\AjaxController@getBasketCount')->name('basketCount');
 
 Route::get('/catalog/{category}/',"App\Http\Controllers\CatalogController@catalog")->name('catalog');
 Route::get('/catalog/{category}/{product_id}/', "App\Http\Controllers\CatalogController@product")->name('product');
@@ -34,9 +36,8 @@ Route::post('/review/add/{product_id}', 'App\Http\Controllers\ReviewController@a
 Route::get('/search/', "App\Http\Controllers\MainController@search")->name('search');
 
 
-Route::get('fill_db_data/{category}', "App\Http\Controllers\MainController@fill_db_data")->name('fill_db_data');
+//Route::get('fill_db_data/{category}', "App\Http\Controllers\MainController@fill_db_data")->name('fill_db_data');
 
 
-Route::get('/artisan-migrate', \App\Http\Controllers\ArtisanController::class);
+//Route::get('/artisan-migrate', \App\Http\Controllers\ArtisanController::class);
 
-Route::post('/api/basket/remove/{productId}', "App\Http\Controllers\BasketController@apiRemove");
