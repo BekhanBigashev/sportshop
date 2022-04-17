@@ -54,6 +54,7 @@
         @foreach($order->products as $product)
             <tr>
                 <td>{{ $loop->iteration }}</td>
+                <td style="display: flex; justify-content: center"><img src="{{$product->image}}" alt=""></td>
                 <td>
                     <a href="{{route('product',[$product->category->code, $product->id])}}">{{ $product->name }}</a>
                 </td>
