@@ -15,7 +15,8 @@ class MainController extends Controller
      */
     public function index()
     {
-        return view('index', []);
+        $newProducts = Product::orderBy('created_at', 'desc')->limit(8)->get();
+        return view('index', ['newProducts' => $newProducts]);
     }
 
     public function search(Request $request)

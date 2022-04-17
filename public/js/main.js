@@ -194,6 +194,33 @@
 $('input[name=rating]').click(function (event) {
     $('input[name=score]').val(event.target.value);
 });
+
+function removeCartItem(element, productId) {
+    console.log('delete');
+    $.ajax({
+        url: '/api/basket/remove/'+productId,         /* Куда пойдет запрос */
+        method: 'post',             /* Метод передачи (post или get) */
+        dataType: 'json',          /* Тип данных в ответе (xml, json, script, html). */
+        data: {},     /* Параметры передаваемые в запросе. */
+        success: function(data){   /* функция которая будет выполнена после успешного запроса.  */
+            deleteStatus = data.status;
+            basketCountCircle = $('#basket-count');
+            basketCount = basketCountCircle.text();
+            if (deleteStatus == 2) {
+                countSpan = $(element).parent().find('.qty');
+                count = countSpan.text();
+                newCount = count-1;
+                countSpan.text(newCount);
+            } else if (deleteStatus == 1) {
+                $(element).parent().remove();
+
+            }
+            basketCountCircle.text(basketCount-1)
+
+        }
+    });
+}
+
 function getUrlParams(url = location.search){
     var regex = /[?&]([^=#]+)=([^&#]*)/g, params = {}, match;
     while(match = regex.exec(url)) {

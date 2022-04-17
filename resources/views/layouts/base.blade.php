@@ -98,52 +98,7 @@
 						<div class="col-md-3 clearfix">
 							<div class="header-ctn">
 
-								<!-- Cart -->
-								<div class="dropdown">
-									<a  class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-										<i class="fa fa-shopping-cart"></i>
-										<span>Корзина</span>
-                                        @if($order)
-										<div class="qty">{{$order->TotalCountOfProducts()}}</div>
-                                        @endif
-
-									</a>
-									<div class="cart-dropdown">
-                                        @if($order)
-										<div class="cart-list">
-
-
-                                                @foreach($order->products as $product)
-                                                    <div class="product-widget">
-                                                        <div class="product-img">
-                                                            <img src="/{{$product->image}}" alt="{{$product->name}}">
-                                                        </div>
-                                                        <div class="product-body">
-                                                            <h3 class="product-name"><a href="{{route('product',[$product->category->code, $product->id])}}">{{$product->name}}</a></h3>
-                                                            <h4 class="product-price"><span class="qty">{{$product->pivot->count}}x</span>{{$product->price}} KZT</h4>
-                                                        </div>
-                                                    </div>
-                                                @endforeach
-
-
-
-										</div>
-										<div class="cart-summary">
-											<h5>SUBTOTAL: {{$order->totalPrice()}} KZT</h5>
-										</div>
-                                            <div class="cart-btns">
-                                                <a href="{{ route('basket') }}">В корзину</a>
-                                                <a href="{{ route('basket-place') }}">Оформить <i class="fa fa-arrow-circle-right"></i></a>
-                                            </div>
-                                        @else
-                                            <div class="cart-summary">
-                                                <h5>Корзина пустая</h5>
-                                            </div>
-                                        @endif
-
-									</div>
-								</div>
-								<!-- /Cart -->
+								@include('includes/header-basket')
 
 								<!-- Menu Toogle -->
 								<div class="menu-toggle">
@@ -214,6 +169,41 @@
 			<div class="content">
 			@yield('content')
 			</div></div></div>
+        <!-- NEWSLETTER -->
+        <div id="newsletter" class="section">
+            <!-- container -->
+            <div class="container">
+                <!-- row -->
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="newsletter">
+                            <p>Подпишитесь на <strong>Рассылку</strong></p>
+                            <form>
+                                <input class="input" type="email" placeholder="Введите E-mail">
+                                <button class="newsletter-btn"><i class="fa fa-envelope"></i> Подписаться</button>
+                            </form>
+                            <ul class="newsletter-follow">
+                                <li>
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-instagram"></i></a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="fa fa-pinterest"></i></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </div>
+        <!-- /NEWSLETTER -->
     <footer id="footer">
 			<!-- top footer -->
 			<div class="section">

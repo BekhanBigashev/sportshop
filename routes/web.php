@@ -38,3 +38,5 @@ Route::get('fill_db_data/{category}', "App\Http\Controllers\MainController@fill_
 
 
 Route::get('/artisan-migrate', \App\Http\Controllers\ArtisanController::class);
+
+Route::post('/api/basket/remove/{productId}', "App\Http\Controllers\BasketController@apiRemove");

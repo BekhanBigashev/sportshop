@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Log\Logger;
+use Illuminate\Support\Facades\Response;
 use Monolog\Handler\TelegramBotHandler;
 use App\Services\TelegramService;
 class BasketController extends Controller
@@ -89,13 +90,41 @@ class BasketController extends Controller
             $pivotRow = $order->products()->where('product_id', $product_id)->first()->pivot;
             if ($pivotRow->count < 2){
                 $order->products()->detach($product_id);
+
             }else{
                 $pivotRow->count--;
                 $pivotRow->update();
+
             }
         }
         $product = Product::find($product_id);
         session()->flash('notice', 'Удален товар '. $product->name);
         return redirect()->back();
+    }
+
+    public function apiRemove($product_id)
+    {
+        /*1 - товар удален
+          2 - товар декрементирован
+          3- ошибка
+*/
+        $orderId = session('orderId');
+        if (is_null($orderId)) {
+            return Response::json(['status' => 3]);
+        }
+        $order = Order::find($orderId);
+        if ($order->products->contains($product_id)) {
+            $pivotRow = $order->products()->where('product_id', $product_id)->first()->pivot;
+            if ($pivotRow->count < 2){
+                $order->products()->detach($product_id);
+
+                return Response::json(['status' =>1]);
+            }else{
+                $pivotRow->count--;
+                $pivotRow->update();
+                session()->forget('orderId');
+                return Response::json(['status' => 2]);
+            }
+        }
     }
 }
