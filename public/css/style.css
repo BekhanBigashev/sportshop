@@ -1204,7 +1204,7 @@ textarea.input {
 .products-slick-nav {
   position: absolute;
   right: 15px;
-  z-index: 10;
+  z-index: 3;
 }
 
 .products-slick-nav .slick-prev, .products-slick-nav .slick-next {
@@ -2235,27 +2235,31 @@ textarea.input {
     margin-left: 10px;
     color: #767676 !important;
 }
-.custom_basket{
+/*.custom_basket{
     border: 1px solid #d0d0d0;
     padding: 21px 32px;
     background-color: #f5f5f5;
+}*/
+.basket-items{
+    margin: 20px 0;
+/*    width: 70%;*/
+    border: 1px solid #d7d7d7;
 }
 .basket-item{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 20px 0px;
-    border: 1px solid gray;
+    border-bottom: 1px solid #ececec;
+/*    margin: 20px 0px;*/
+/*    border: 1px solid gray;*/
     padding-right: 20px;
 }
 .basket-item .image{
     width: 7.5rem;
-    height: 6.625rem;
-    border-right: 1px solid gray;
+
 }
 .basket-item .image{
-    width: 200px;
-    height: 200px;
+    margin-left: 20px;
     overflow: hidden;
 }
 .basket-item .image img{
@@ -2264,33 +2268,42 @@ textarea.input {
 }
 .basket-item .name{
     width: 200px;
+    text-transform: uppercase;
 }
 .basket-item .price{
     width: 100px;
+    font-weight: 600;
 }
 .basket-item .total_price{
     width: 100px;
+    font-weight: 900;
 }
 .basket-item .count{
     display: flex;
-    border: 1px solid #b6b6b6;
+/*    border: 1px solid #b6b6b6;*/
 }
 .basket-item .count .value{
     font-size: 20px;
-    margin: 0px 10px;
     color: #2f2f2f;
     display: flex;
     align-items: center;
+    width: 25px;
+    justify-content: center;
+}
+.basket-item .remove{
+    background-color: #558bee;
+}
+.basket-item .add{
+    background-color: #cf370e;
 }
 .content{
     margin-bottom: 30px;
 }
 .purchase_btn{
     margin-top: 20px;
-    float: right;
 }
 .total-price{
-    text-align: right;
+  /*  text-align: right;*/
     font-size:20px;
 }
 .custom-btn{
@@ -2301,9 +2314,10 @@ textarea.input {
 }
 
 .catalog .categories-and-filter{
-    background-color: #f6f6f6;
+
     padding: 15px;
     margin-top: 15px;
+    border: 1px solid #acc9ff;
 }
 .catalog .parent-category{
     font-size: 17px;

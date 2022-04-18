@@ -83,6 +83,12 @@ class BasketController extends Controller
                 $pivotRow->update();
 
             }
+
+        }
+        $order = Order::find($orderId);
+        $count = $order->products->count();
+        if ($count == 0) {
+            session()->forget('orderId');
         }
         $product = Product::find($product_id);
         session()->flash('notice', 'Удален товар '. $product->name);

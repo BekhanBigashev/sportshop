@@ -3,51 +3,55 @@
 
 @section('content')
     <h3>Корзина</h3>
-{{--    @if($order)--}}
-{{--        <h1>Корзина</h1>--}}
-{{--        <div class="custom_basket">--}}
-{{--            <div class="basket-items">--}}
-{{--                @foreach ($order->products as $product)--}}
-{{--                    <div class="basket-item">--}}
-{{--                        <div class="image">--}}
-{{--                            <img src="{{$product->image}}" alt="{{$product->name}}">--}}
-{{--                        </div>--}}
-{{--                        <div class="name">--}}
-{{--                            <a href="{{route('product',[$product->category->code, $product->id])}}">{{$product->name}}</a>--}}
-{{--                        </div>--}}
-{{--                        <div class="price">--}}
-{{--                            {{$product->price}}--}}
-{{--                        </div>--}}
-{{--                        <div class="total_price">--}}
-{{--                            {{$product->priceForCount()}}--}}
-{{--                        </div>--}}
-{{--                        <div class="count">--}}
-{{--                            <form method="post" action="{{route('basket-remove', [$product->id])}}">--}}
-{{--                                <button class="remove btn" type="submit">-</button>--}}
-{{--                                @csrf--}}
-{{--                            </form>--}}
-{{--                            <div class="value">{{$product->pivot->count}}</div>--}}
-{{--                            <form method="post" action="{{route('basket-add', [$product->id])}}">--}}
-{{--                                <button class="add btn" type="submit">+</button>--}}
-{{--                                @csrf--}}
-{{--                            </form>--}}
-{{--                        </div>--}}
-
-{{--                    </div>--}}
-{{--                @endforeach--}}
-{{--            </div>--}}
-{{--            <div class="total-price">Общая сумма заказа: {{$order->totalPrice()}}</div>--}}
-{{--        </div>--}}
-{{--    @endif--}}
     @if($order)
+        <div class="custom_basket">
+            <div class="basket-items">
+                @foreach ($order->products as $product)
+                    <div class="basket-item">
+                        <div class="image">
+                            <img src="{{$product->image}}" alt="{{$product->name}}">
+                        </div>
+                        <div class="name">
+                            <a href="{{route('product',[$product->category->code, $product->id])}}">{{$product->name}}</a>
+                        </div>
+                        <div class="price">
+                            {{$product->price}} тг
+                        </div>
+
+                        <div class="count">
+                            <form method="post" action="{{route('basket-remove', [$product->id])}}">
+                                <button class="remove btn" type="submit">-</button>
+                                @csrf
+                            </form>
+                            <div class="value">{{$product->pivot->count}}</div>
+                            <form method="post" action="{{route('basket-add', [$product->id])}}">
+                                <button class="add btn" type="submit">+</button>
+                                @csrf
+                            </form>
+                        </div>
+                        <div class="total_price">
+                            {{$product->priceForCount()}} тг
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+            <div class="total-price">Общая сумма заказа: {{$order->totalPrice()}}</div>
+            <a class="purchase_btn custom-btn btn" href="{{ route('basket-place') }}">Оформить заказ</a>
+        </div>
+
+    @else
+        Корзина пустая<br>
+        <a href="{{route('categories')}}">Перейти в каталог</a>
+    @endif
+  {{--  @if($order)
     <table class="table table-bordered">
         <thead class="thead-dark">
         <tr>
             <th>№</th>
             <th>Наименование</th>
             <th>Цена</th>
-            <th>Кол-во</th>
             <th>Стоимость</th>
+            <th>Кол-во</th>
         </tr>
         </thead>
 
@@ -78,11 +82,12 @@
             <th>{{ number_format($order->totalPrice(), 2, '.', '') }}</th>
         </tr>
     </table>
-
-    @else
-        Корзина пустая
-    @endif
     <a class="purchase_btn custom-btn btn" href="{{ route('basket-place') }}">Оформить заказ</a>
+    @else
+        Корзина пустая<br>
+        <a href="{{route('categories')}}">Перейти в каталог</a>
+    @endif--}}
+
 
 
 

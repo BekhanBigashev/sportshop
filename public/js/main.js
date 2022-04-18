@@ -214,7 +214,17 @@ $('.add-to-cart-btn').click(function (event){
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success: function(response) {
-                    $('#basket-count').html(response.count);
+                    if ($('#basket-count').length) {
+                        $('#basket-count').html(response.count);
+                    } else {
+                        container = $('.header-basket').find('a');
+                        console.log(container)
+                        $('.header-basket').find('a').append($('<div>', {
+                            'id': 'basket-count',
+                            'text': response.count
+                        }));
+                    }
+
                 }
             });
 
