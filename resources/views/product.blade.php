@@ -279,10 +279,10 @@
 
 
                                             <input @auth value="{{$user->name}}" @endauth name="name" class="input" type="text" placeholder="Ваше имя">
-                                            @guest
+{{--                                            @guest--}}
 
-                                            <input required name="email" class="input" type="email" placeholder="Ваш E-mail">
-                                            @endguest
+{{--                                            <input required name="email" class="input" type="email" placeholder="Ваш E-mail">--}}
+{{--                                            @endguest--}}
                                             <textarea required name="text" class="input" placeholder="Ваш отзыв"></textarea>
                                             <div class="input-rating">
                                                 <span>Ваша оценка: </span>
