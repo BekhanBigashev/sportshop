@@ -1,6 +1,6 @@
 @extends('layouts/base')
 @section('title', 'Каталог - ' .$category->name)
-
+@section('page-title', $category->name)
 @section('content')
 
         <div class="catalog ">
@@ -20,6 +20,8 @@
                                 <option value="asc">по возрастанию</option>
                                 <option value="desc">По убыванию</option>
                             </select>
+                            <br>
+                            <input autocomplete="false" class="input" type="text" name="key" placeholder="Поиск по названию">
                             <button style="margin-top: 34px; " class="btn btn-primary" type="submit">Применить</button>
                             <button id="catalog-filter-clean"  style="margin-top: 34px; " class="btn" >Очистить</button>
                         </form>
@@ -34,7 +36,9 @@
                 <div class="row">
                     @if($products)
                         @foreach($products as $product)
+                            <div class="col-md-3 col-xs-6">
                             @include('includes/catalog-item')
+                            </div>
                         @endforeach
                     @else
                         @include('includes/products_not_found')

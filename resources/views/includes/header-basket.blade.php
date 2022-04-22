@@ -2,7 +2,13 @@
 <div class="header-basket dropdown">
     <a href="{{ route('basket') }}" >
         <i class="fa fa-shopping-cart"></i>
-        <span>Корзина</span>
+
+        @if ($order)
+            <span>{{$order->totalPrice()}} тг</span>
+        @else
+            <span>Корзина</span>
+        @endif
+
         @if($order)
             <div id="basket-count">{{$order->TotalCountOfProducts()}}</div>
         @endif

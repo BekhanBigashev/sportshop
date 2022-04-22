@@ -65,6 +65,9 @@ class CatalogController extends Controller
                     $builder->orderBy('name', $request->order);
                 }
             }
+            if ($request->has('key')) {
+                $builder->where('name', 'like', "%" . $request->key . "%");
+            }
             $products = $builder->paginate(8)->withQueryString();
 
             return view('catalog', ['category' => $category, 'products' => $products]);//, 'params' => $request->all()

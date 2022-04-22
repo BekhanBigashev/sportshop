@@ -1,8 +1,8 @@
 @extends('layouts/base')
 @section('title', 'Категории')
-
+@section('page-title', 'Все категории')
 @section('content')
-    <h1>Все категории</h1>
+
 <div class="section">
     <!-- container -->
     <div class="container">

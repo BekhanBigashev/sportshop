@@ -1,9 +1,9 @@
 @extends('layouts/base')
 @section('title', 'Категорииs')
-
+@section('page-title', $category->name)
 @section('content')
 
-<h1>{{$category->name}}</h1>
+
     @if($category->parent_id != 0)
     <div class="row">
         @foreach ($category->products as $product)

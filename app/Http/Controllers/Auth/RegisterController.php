@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\Services\B24Service;
 use App\Services\TelegramService;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
@@ -66,6 +67,11 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        B24Service::addContact([
+            'NAME' => $data['name'],
+            'SECOND_NAME' => 'qweod',
+            'LAST_NAME' => 'asdad',
+        ]);
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],

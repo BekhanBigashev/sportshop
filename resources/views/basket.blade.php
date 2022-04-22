@@ -1,15 +1,14 @@
 @extends('layouts.base')
 @section('title', 'Корзина')
-
+@section('page-title', 'Корзина')
 @section('content')
-    <h3>Корзина</h3>
     @if($order)
         <div class="custom_basket">
             <div class="basket-items">
                 @foreach ($order->products as $product)
                     <div class="basket-item">
                         <div class="image">
-                            <img src="{{$product->image}}" alt="{{$product->name}}">
+                            <img src="/{{$product->image}}" alt="{{$product->name}}">
                         </div>
                         <div class="name">
                             <a href="{{route('product',[$product->category->code, $product->id])}}">{{$product->name}}</a>
@@ -40,8 +39,8 @@
         </div>
 
     @else
-        Корзина пустая<br>
-        <a href="{{route('categories')}}">Перейти в каталог</a>
+        В корзине не товаров<br>
+        <a class="btn btn-secondary" href="{{route('categories')}}">Перейти в каталог</a>
     @endif
   {{--  @if($order)
     <table class="table table-bordered">

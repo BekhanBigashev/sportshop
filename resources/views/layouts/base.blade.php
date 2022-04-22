@@ -46,7 +46,7 @@
 			<div id="top-header">
 				<div class="container">
 					<ul class="header-links pull-left">
-						<li><a href="#"><i class="fa fa-phone phone"></i>8 707 382 64 25</a></li>
+						<li><a href="https://wa.me/77073826425"><i class="fa fa-phone phone"></i>8 707 382 64 25</a></li>
 						<li><a href="#"><i class="fa fa-envelope-o"></i> sportshop@info.kz</a></li>
 						<li><a href="#"><i class="fa fa-map-marker map-marker"></i> Abay 1/2</a></li>
 					</ul>
@@ -165,14 +165,18 @@
 		<!-- /NAVIGATION -->
 		<div class="section">
 			<div class="container">
-			<div class="row">
-			@yield('content')
-			</div></div></div>
+                <h3>@yield('page-title')</h3>
+                <div class="row">
+                    @yield('content')
+                </div>
+            </div>
+        </div>
+
         <!-- NEWSLETTER -->
-        <div id="newsletter" class="section">
-            <!-- container -->
+<!--        <div id="newsletter" class="section">
+            &lt;!&ndash; container &ndash;&gt;
             <div class="container">
-                <!-- row -->
+                &lt;!&ndash; row &ndash;&gt;
                 <div class="row">
                     <div class="col-md-12">
                         <div class="newsletter">
@@ -198,10 +202,10 @@
                         </div>
                     </div>
                 </div>
-                <!-- /row -->
+                &lt;!&ndash; /row &ndash;&gt;
             </div>
-            <!-- /container -->
-        </div>
+            &lt;!&ndash; /container &ndash;&gt;
+        </div>-->
         <!-- /NEWSLETTER -->
     <footer id="footer">
 			<!-- top footer -->

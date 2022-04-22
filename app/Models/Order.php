@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Services\TelegramService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Order extends Model
 {
@@ -55,12 +56,19 @@ class Order extends Model
             $this->email = $validated['email'];
             $this->status = 1;
             $this->delivery = $validated['delivery'];
+            if(!is_null($validated['comment'])) {
+                $this->comment = $validated['comment'];
+            }
+
             if ($validated['delivery'] == 'pickup') {
                 $this->delivery_point_id = $validated['delivery_point_id'];
             } elseif ($validated['delivery'] == 'delivery') {
                 $this->adress = $validated['adress'];
             } else {
                 return false;
+            }
+            if (Auth::user()) {
+                $this->user_id = Auth::id();
             }
 
             $this->save();
@@ -88,5 +96,24 @@ class Order extends Model
         }else{
             $order->products()->attach($productId);
         }
+    }
+
+    public function getDeliveryPoint()
+    {
+        return DeliveryPoint::find($this->delivery_point_id);
+    }
+
+    public function relatedProducts()
+    {
+
+        $orderProducts = $this->products;
+
+        foreach ($orderProducts as $product) {
+            $related = Product::where('category_id', $product->category_id)->where('id', '!=',  $product->id)->limit(2)->get();
+            foreach ($related as $item) {
+                $res[] = $item;
+            }
+        }
+        return $res;
     }
 }

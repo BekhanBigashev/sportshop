@@ -79,4 +79,9 @@ class Product extends Model
     {
         return json_encode(DB::select('select SUM(count) as count from order_product inner join orders on orders.id=order_product.order_id where orders.status=1 and product_id='.$this->id ));
     }
+
+    public function related()
+    {
+        return self::where('category_id', $this->category_id)->limit(4)->get();
+    }
 }

@@ -1,6 +1,6 @@
 
 <!-- product -->
-<div class="col-md-4 col-xs-6">
+<!--<div class="col-md-3 col-xs-6">-->
     <div class="product">
         <div class="product-img">
             <img src="/{{$product->image}}" alt="">
@@ -33,10 +33,16 @@
         <div class="add-to-cart">
             <form onsubmit="addToBasket({{$product->id}}, this)">
                 @csrf
-                <button data-href="{{route('basket.ajax.add', $product->id)}}" type="submit" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>в корзину</button>
+                <button data-href="{{route('basket.ajax.add', $product->id)}}" type="submit" class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i>
+                    @if ($product->existInBasket())
+                        Добавить еще
+                    @else
+                        в корзину
+                    @endif
+                </button>
             </form>
 
         </div>
     </div>
-</div>
+<!--</div>-->
 <!-- /product -->

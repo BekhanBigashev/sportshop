@@ -11,8 +11,8 @@ Auth::routes([
 
 Route::group(['middleware' => 'auth'], function(){
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-    Route::get('/orders', [App\Http\Controllers\HomeController::class, 'orders'])->name('orders');
 });
+
 Route::get('/', "App\Http\Controllers\MainController@index")->name('index');
 
 Route::get('/logout/', "App\Http\Controllers\Auth\LoginController@logout")->name('logout');
@@ -28,6 +28,8 @@ Route::post('/basket/remove/{id}/', 'App\Http\Controllers\BasketController@baske
 Route::post('/basket/confirm/', 'App\Http\Controllers\BasketController@basketConfirm')->name('basket-confirm');
 Route::post('/basket/ajax/count/', 'App\Http\Controllers\AjaxController@getBasketCount')->name('basketCount');
 
+Route::post('/order/ajax/delete/{orderId}',"App\Http\Controllers\AjaxController@deleteOrder");
+
 Route::get('/catalog/{category}/',"App\Http\Controllers\CatalogController@catalog")->name('catalog');
 Route::get('/catalog/{category}/{product_id}/', "App\Http\Controllers\CatalogController@product")->name('product');
 
@@ -35,6 +37,9 @@ Route::post('/review/add/{product_id}', 'App\Http\Controllers\ReviewController@a
 
 Route::get('/search/', "App\Http\Controllers\MainController@search")->name('search');
 
+Route::post('/user/ajax/update/{user_id}', 'App\Http\Controllers\AjaxController@updateUser');
+
+Route::get('/test/', "App\Http\Controllers\MainController@test")->name('test');
 
 //Route::get('fill_db_data/{category}', "App\Http\Controllers\MainController@fill_db_data")->name('fill_db_data');
 

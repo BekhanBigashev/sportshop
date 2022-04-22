@@ -196,6 +196,14 @@ $('input[name=rating]').click(function (event) {
 });
 
 
+/*    catalogItem = $('.product');
+    catalogItem.height(catalogItem.width()*2);
+
+    $(window).resize(function(){
+        catalogItem.height(catalogItem.width()*2);
+    });*/
+
+
 $('.add-to-cart-btn').click(function (event){
     event.preventDefault();
     $.ajax({
@@ -229,11 +237,16 @@ $('.add-to-cart-btn').click(function (event){
             });
 
             new Toast({
-                title: data.name,
-                text: 'Добавлен в корзину',
-                theme: 'success',
-                autohide: true,
-                interval: 10000
+                message: data.name+' Добавлен в корзину',
+                type: 'success',
+                customButtons: [
+                    {
+                        text: 'Перейти в корзину',
+                        onClick: function() {
+                            window.location.href = '/basket/';
+                        }
+                    },
+                ]
             });
             event.target.innerText = 'Добавить еще';
         }
@@ -241,6 +254,24 @@ $('.add-to-cart-btn').click(function (event){
     return false;
 });
 
+function deleteOrder(orderId) {
+    el = $('.cabinet .orders .item[data-order-id='+orderId+']');
+
+    $.ajax({
+        url: '/order/ajax/delete/'+orderId,
+        method:'post',
+        dataType: 'JSON',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function() {
+            el.remove();
+            if (!$('.cabinet .orders .item').length) {
+                $('.cabinet .orders').append('Заказов нет');
+            }
+        }
+    });
+}
 
 function getUrlParams(url = location.search){
     var regex = /[?&]([^=#]+)=([^&#]*)/g, params = {}, match;
@@ -249,11 +280,40 @@ function getUrlParams(url = location.search){
     }
     return params;
 }
+
+function updateUserData(event, form)
+{
+    event.preventDefault()
+    res = $(form).serializeArray()
+    data = []
+    $.each(res,function(){
+        data[this.name] = this.value
+    });
+    console.log(data)
+    $.ajax({
+        url: '/user/ajax/update/'+data.user_id,
+        method:'post',
+        dataType: 'JSON',
+        data: data,
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function() {
+            new Toast({
+                message: 'Данные о пользователе изменены',
+                type: 'success',
+            });
+        }
+    });
+
+}
 params = getUrlParams();
 sort = params['sort'];
 order = params['order'];
+key = params['key'];
 $('#catalog-sort-select option[value='+sort+']').prop('selected', true);
 $('#catalog-order-select option[value='+order+']').prop('selected', true);
+$('input[name=key]').val(key)
 $('#catalog-filter-clean').click(function (event){
     $('#catalog-sort-select option[value=0]').prop('selected', true);
     $('#catalog-order-select option[value=0]').prop('selected', true);
@@ -288,3 +348,4 @@ $('input[type=radio][name=delivery]').change(function(event) {
         $('select[name=delivery_point_id]').removeAttr('required');
     }
 });
+
