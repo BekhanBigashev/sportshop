@@ -42,21 +42,21 @@ class BasketController extends Controller
         $order = Order::find($orderId);
         $success = $order->saveOrder($validated);
         if ($success){
-            $paymentPageLink = PayBoxApiService::getPaymentPageLink($order);
+/*            $paymentPageLink = PayBoxApiService::getPaymentPageLink($order);*/
 
-            /*            TelegramService::newOrder($order);
-                        session()->forget('orderId');
-                        session()->flash('success', 'Ваш заказ успешно оформлен');
-                        $b24_response = B24Service::addDeal([
-                            'TITLE' => 'Новый заказ на sportshop.kz',
-                            'STAGE_ID' => 'EXECUTING',
-                        ]);*/
-            dd($paymentPageLink);
+            TelegramService::newOrder($order);
+            session()->forget('orderId');
+            session()->flash('success', 'Ваш заказ успешно оформлен');
+            session(['afterCheckoutOrderId' => $orderId]);
+/*            $b24_response = B24Service::addDeal([
+                'TITLE' => 'Новый заказ на sportshop.kz',
+                'STAGE_ID' => 'EXECUTING',
+            ]);*/
         }else{
             session()->flash('warning', 'Произошла ошибка при сохранении заказа');
         }
 
-        session(['afterCheckoutOrderId' => $orderId]);
+
         return redirect()->route('index');
     }
 

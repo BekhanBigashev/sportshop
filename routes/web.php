@@ -44,5 +44,5 @@ Route::get('/test/', "App\Http\Controllers\MainController@test")->name('test');
 //Route::get('fill_db_data/{category}', "App\Http\Controllers\MainController@fill_db_data")->name('fill_db_data');
 
 
-//Route::get('/artisan-migrate', \App\Http\Controllers\ArtisanController::class);
+Route::get('/artisan-migrate', \App\Http\Controllers\ArtisanController::class);
 

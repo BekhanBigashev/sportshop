@@ -7,8 +7,26 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
+
     use HasFactory;
 
+    public const RELATIONS = [
+        5 => [9, 7, 14, 15],
+        7 => [5, 9, 14, 15],
+        9 => [7, 14],
+        14 => [7, 9],
+        15 => [16],
+        16 => [15],
+        8 => [22, 23],
+        11 => [12, 13],
+        12 => [11, 13],
+        13 => [11, 12],
+        19 => [20],
+        20 => [19],
+        21 => [23, 22],
+        22 => [21, 23],
+        23 => [22, 21],
+    ];
     /**
      * Товары в данной категории
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
