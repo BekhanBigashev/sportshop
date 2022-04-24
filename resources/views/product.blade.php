@@ -24,8 +24,10 @@
 {{--                        <a class="review-link" href="#">{{$product->reviewsCount()}} отзывов) | Оставить свой отзыв</a>--}}
                     </div>
                     <div>
-                        <h3 class="product-price">{{$product->price}} KZT
-{{--                            <del class="product-old-price">$990.00</del>--}}
+                        <h3 class="product-price">{{$product->getPrice()}} тг
+                            @if ($product->sale)
+                            <del class="product-old-price">{{$product->price}} тг</del>
+                                @endif
                         </h3>
 {{--                        <span class="product-available">In Stock</span>--}}
                     </div>

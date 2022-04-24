@@ -214,8 +214,10 @@ $('.add-to-cart-btn').click(function (event){
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function(data) {
+            getBasketCounUurl = '/basket/ajax/count/';
+            console.log(getBasketCounUurl)
             $.ajax({
-                url: '/basket/ajax/count/',
+                url: getBasketCounUurl,
                 method:'post',
                 dataType: 'JSON',
                 headers: {
@@ -255,10 +257,11 @@ $('.add-to-cart-btn').click(function (event){
 });
 
 function deleteOrder(orderId) {
+    console.log(window.location.host)
     el = $('.cabinet .orders .item[data-order-id='+orderId+']');
 
     $.ajax({
-        url: '/order/ajax/delete/'+orderId,
+        url: 'order/ajax/delete/'+orderId,
         method:'post',
         dataType: 'JSON',
         headers: {

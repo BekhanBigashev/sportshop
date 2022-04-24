@@ -52,7 +52,7 @@ class CatalogController extends Controller
     {
         $category = Category::where('code',$code)->first();
         if ($category->parent_id != 0) {
-            $builder = Product::where('category_id', $category->id);
+            $builder = Product::where('category_id', $category->id)->where('available_items_count', '!=', 0);
             $products = $builder->get();
             if ($request->has('sort') && in_array($request->sort, ['price', 'name'])) {
                 if ($request->has('order') && in_array($request->order, ['asc', 'desc'])) {

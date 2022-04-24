@@ -105,15 +105,14 @@ class Order extends Model
 
     public function relatedProducts()
     {
-
         $orderProducts = $this->products;
 
         foreach ($orderProducts as $product) {
-            $related = Product::where('category_id', $product->category_id)->where('id', '!=',  $product->id)->limit(2)->get();
+            $related = $product->related(count($orderProducts) > 2 ? 2 : 1);
             foreach ($related as $item) {
                 $res[] = $item;
             }
         }
-        return $res;
+        return $res ?? false;
     }
 }

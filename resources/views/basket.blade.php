@@ -14,7 +14,7 @@
                             <a href="{{route('product',[$product->category->code, $product->id])}}">{{$product->name}}</a>
                         </div>
                         <div class="price">
-                            {{$product->price}} тг
+                            {{$product->getPrice()}} тг
                         </div>
 
                         <div class="count">

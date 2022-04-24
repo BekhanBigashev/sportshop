@@ -108,7 +108,7 @@
                 @foreach ($order->products as $product)
                 <div class="order-col">
                     <div>{{$product->pivot->count}} x {{$product->name}}</div>
-                    <div>{{$product->price}} тг</div>
+                    <div>{{$product->getPrice()}} тг</div>
                 </div>
                 @endforeach
             </div>

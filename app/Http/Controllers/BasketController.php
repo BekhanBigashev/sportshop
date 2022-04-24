@@ -52,6 +52,11 @@ class BasketController extends Controller
                 'TITLE' => 'Новый заказ на sportshop.kz',
                 'STAGE_ID' => 'EXECUTING',
             ]);*/
+            foreach ($order->products as $product) {
+
+                $product->available_items_count -= $product->pivot->count;
+                $product->save();
+            }
         }else{
             session()->flash('warning', 'Произошла ошибка при сохранении заказа');
         }

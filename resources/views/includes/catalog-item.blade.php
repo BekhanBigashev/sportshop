@@ -4,16 +4,22 @@
     <div class="product">
         <div class="product-img">
             <img src="/{{$product->image}}" alt="">
-{{--            <div class="product-label">--}}
-{{--                <span class="sale">-30%</span>--}}
-{{--                <span class="new">NEW</span>--}}
-{{--            </div>--}}
+            <div class="product-label">
+                @if($product->sale)
+                <span class="sale">-{{$product->sale}}%</span>
+                @endif
+                @if($product->new)
+                    <span class="new">NEW</span>
+                    @endif
+            </div>
         </div>
         <div class="product-body">
             <p class="product-category">{{$product->category->name}}</p>
             <h3 class="product-name"><a href="{{route('product', [$product->category->code, $product->id])}}">{{$product->name}}</a></h3>
-            <h4 class="product-price">{{$product->price}} тг
-{{--                <del class="product-old-price">$990.00</del>--}}
+            <h4 class="product-price">{{$product->getPrice()}} тг
+                @if($product->sale)
+                <del class="product-old-price">{{$product->price}} тг</del>
+                    @endif
             </h4>
             <div class="product-rating">
                 @for ($i = 0; $i < 5; $i++)

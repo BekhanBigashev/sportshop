@@ -28,7 +28,7 @@ class Product extends Model
     public function priceForCount()
     {
         $count = $this->pivot->count;
-        return $this->price * $count;
+        return $this->getPrice() * $count;
     }
 
     /**
@@ -63,6 +63,11 @@ class Product extends Model
 
     }
 
+    public function getPrice()
+    {
+        return is_null($this->sale) ? $this->price : $this->price - ($this->price * ($this->sale/100));
+    }
+
     /**
      * Рейтинг товара (среднее всех его отзывов)
      * @return float
@@ -72,25 +77,16 @@ class Product extends Model
         return round(collect($this->reviews)->avg('score'),0, PHP_ROUND_HALF_UP);
     }
 
-    /**
-     * Количество заказанных экземпляров этого товара (не работает)
-     * @return false|string
-     */
-/*    public function countOfOrders()
-    {
-        return json_encode(DB::select('select SUM(count) as count from order_product inner join orders on orders.id=order_product.order_id where orders.status=1 and product_id='.$this->id ));
-    }*/
 
-    public function related()
+    public function related($count = 2)
     {
         $relatedCategories = Category::RELATIONS[$this->category_id];
-/*        foreach ($relatedCategories as $category) {
-            $builder = self::where('category_id', $category)->limit(2);
-            $res += $builder;
+        foreach ($relatedCategories as $category) {
+            $builder = self::where('category_id', $category)->limit($count)->whereBetween('price', [($this->getPrice() / 2), ($this->getPrice() + 1000)])->get();
+            foreach ($builder as $item) {
+                $res[] = $item;
+            }
         }
-        dd($res->get());*/
-        $builder = self::whereIn('category_id', $relatedCategories)->limit(4)->whereBetween('price', [($this->price - 10000), ($this->price + 10000)])->inRandomOrder()->get();
-/*        dd($builder);*/
-        return $builder;
+        return $res;
     }
 }
