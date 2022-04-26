@@ -87,6 +87,6 @@ class Product extends Model
                 $res[] = $item;
             }
         }
-        return $res;
+        return $res ?? false;
     }
 }

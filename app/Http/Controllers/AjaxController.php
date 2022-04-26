@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Order;
 use App\Models\Product;
 use App\Models\User;
@@ -15,7 +14,6 @@ class AjaxController extends Controller
     {
         Order::addToBasket($product_id);
         $product = Product::find($product_id);
-
         return Response::json(['name' => $product->name], 200);
     }
 
