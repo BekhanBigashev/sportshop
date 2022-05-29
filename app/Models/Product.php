@@ -82,11 +82,27 @@ class Product extends Model
     {
         $relatedCategories = Category::RELATIONS[$this->category_id];
         foreach ($relatedCategories as $category) {
-            $builder = self::where('category_id', $category)->limit($count)->whereBetween('price', [($this->getPrice() / 2), ($this->getPrice() + 1000)])->get();
+            $builder = self::where('category_id', $category)->limit($count)
+                ->whereBetween('price',
+                    [
+                        ($this->getPrice() - config('app.related_product_price_diff')),
+                        ($this->getPrice() + config('app.related_product_price_diff'))
+                    ]
+                )->get();
             foreach ($builder as $item) {
-                $res[] = $item;
+                $res[] = $item->id;
             }
         }
-        return $res ?? false;
+        return $res ?? [];
+    }
+
+    public function getAdminLink()
+    {
+        return '<a href="' . '/admin/products/' . $this->id . '/edit">' . $this->name . "</a>";
+    }
+
+    public static function getCollectionByIds(array $ids)
+    {
+        return self::whereIn('id', $ids)->get();
     }
 }

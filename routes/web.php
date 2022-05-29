@@ -18,7 +18,6 @@ Route::get('/', "App\Http\Controllers\MainController@index")->name('index');
 Route::get('/logout/', "App\Http\Controllers\Auth\LoginController@logout")->name('logout');
 
 Route::get("/catalog/", "App\Http\Controllers\CatalogController@categories")->name('categories');
-Route::match(['GET', 'POST'],'/json-catalog/', "App\Http\Controllers\CatalogController@json");
 
 Route::get('/basket/', 'App\Http\Controllers\BasketController@basket')->name('basket');
 Route::get('/basket/place/', 'App\Http\Controllers\BasketController@basketPlace')->name('basket-place');

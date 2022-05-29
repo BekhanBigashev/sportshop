@@ -99,13 +99,11 @@
                         <div id="tab1" class="tab-pane fade in active">
                             <div class="row">
                                 <div class="col-md-12">
-                                    @foreach($product->related() as $product)
+                                    @foreach(\App\Models\Product::getCollectionByIds($product->related()) as $related)
                                         <div class="col-md-3">
-                                            @include('includes/catalog-item')
+                                            @include('includes/catalog-item', ['product' => $related])
                                         </div>
-
                                     @endforeach
-                            {{--        <p>{{$product->related()}}</p>--}}
                                 </div>
                             </div>
                         </div>
@@ -131,73 +129,7 @@
 
                                             </div>
                                         </div>
-<!--                                        <ul class="rating">
-                                            <li>
-                                                <div class="rating-stars">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="rating-progress">
-                                                    <div style="width: 80%;"></div>
-                                                </div>
-                                                <span class="sum">3</span>
-                                            </li>
-                                            <li>
-                                                <div class="rating-stars">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                </div>
-                                                <div class="rating-progress">
-                                                    <div style="width: 60%;"></div>
-                                                </div>
-                                                <span class="sum">2</span>
-                                            </li>
-                                            <li>
-                                                <div class="rating-stars">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                </div>
-                                                <div class="rating-progress">
-                                                    <div></div>
-                                                </div>
-                                                <span class="sum">0</span>
-                                            </li>
-                                            <li>
-                                                <div class="rating-stars">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                </div>
-                                                <div class="rating-progress">
-                                                    <div></div>
-                                                </div>
-                                                <span class="sum">0</span>
-                                            </li>
-                                            <li>
-                                                <div class="rating-stars">
-                                                    <i class="fa fa-star"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                    <i class="fa fa-star-o"></i>
-                                                </div>
-                                                <div class="rating-progress">
-                                                    <div></div>
-                                                </div>
-                                                <span class="sum">0</span>
-                                            </li>
-                                        </ul>-->
+
                                     </div>
                                 </div>
                                 <!-- /Rating -->
@@ -226,46 +158,9 @@
                                                 </div>
                                             </li>
                                             @endforeach
-{{--                                            <li>--}}
-{{--                                                <div class="review-heading">--}}
-{{--                                                    <h5 class="name">John</h5>--}}
-{{--                                                    <p class="date">27 DEC 2018, 8:0 PM</p>--}}
-{{--                                                    <div class="review-rating">--}}
-{{--                                                        <i class="fa fa-star"></i>--}}
-{{--                                                        <i class="fa fa-star"></i>--}}
-{{--                                                        <i class="fa fa-star"></i>--}}
-{{--                                                        <i class="fa fa-star"></i>--}}
-{{--                                                        <i class="fa fa-star-o empty"></i>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                                <div class="review-body">--}}
-{{--                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>--}}
-{{--                                                </div>--}}
-{{--                                            </li>--}}
-{{--                                            <li>--}}
-{{--                                                <div class="review-heading">--}}
-{{--                                                    <h5 class="name">John</h5>--}}
-{{--                                                    <p class="date">27 DEC 2018, 8:0 PM</p>--}}
-{{--                                                    <div class="review-rating">--}}
-{{--                                                        <i class="fa fa-star"></i>--}}
-{{--                                                        <i class="fa fa-star"></i>--}}
-{{--                                                        <i class="fa fa-star"></i>--}}
-{{--                                                        <i class="fa fa-star"></i>--}}
-{{--                                                        <i class="fa fa-star-o empty"></i>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                                <div class="review-body">--}}
-{{--                                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</p>--}}
-{{--                                                </div>--}}
-{{--                                            </li>--}}
+
                                         </ul>
-<!--                                        <ul class="reviews-pagination">
-                                            <li class="active">1</li>
-                                            <li><a href="#">2</a></li>
-                                            <li><a href="#">3</a></li>
-                                            <li><a href="#">4</a></li>
-                                            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                                        </ul>-->
+
                                     </div>
                                 </div>
                                 <!-- /Reviews -->

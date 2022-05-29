@@ -1,6 +1,7 @@
 @extends('layouts.base')
 @section('title', 'Личный кабинет')
 @section('content')
+
 <div class="container">
     <div class="cabinet row">
         <div class="col-md-4 profile">
@@ -28,13 +29,18 @@
                 @if(count($user->orders))
 
                 @foreach($user->orders as $order)
-                    <div data-order-id="{{$order->id}}" class="item">
+                    <div data-order-id="{{$order->id}}" class="item {{$order->status == 0 ? 'uncheckout' : ''}}">
 
                         <div class="head">
                             <div class="order-number">
-                                Заказ №{{$order->id}}
+                                {{$order->status == 0 ? 'Неоформленный ' : ''}}Заказ №{{$order->id}}
                             </div>
-                             <a onclick="deleteOrder({{$order->id}})" class="delete-order">Удалить</a></div>
+                            @if ($order->status == 0)
+                                <a onclick="continueCheckout({{$order->id}})" class="continue-checkout">Продолжить оформление</a>
+                            @else
+                                <a onclick="deleteOrder({{$order->id}})" class="delete-order">Удалить</a>
+                            @endif
+                             </div>
                         <div class="body row">
 
                             <div class="col-md-6">

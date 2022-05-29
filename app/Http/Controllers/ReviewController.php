@@ -20,6 +20,7 @@ class ReviewController extends Controller
         $review->product_id = $validated['product_id'];
         $review->text = $validated['text'];
         $review->score = $validated['score'];
+
         $review->save();
         return redirect()->back();
     }

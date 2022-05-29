@@ -637,11 +637,7 @@ textarea.input {
 	03 -> Navigation
 ===========================================================*/
 
-#navigation {
-  background: #FFF;
-  border-bottom: 2px solid #E4E7ED;
-  border-top: 3px solid #558bee;
-}
+
 
 /*----------------------------*\
 	Main nav
@@ -2158,9 +2154,61 @@ textarea.input {
 	13 -> RESPONSIVE
 ===========================================================*/
 
-@media only screen and (max-width: 1201px) {}
+@media only screen and (min-width: 1201px) {
+    /* The container <div> - needed to position the dropdown content */
+
+    /* Dropdown Content (Hidden by Default) */
+    .dropdown-content {
+        display: none;
+        left: 0;
+        position: absolute;
+        z-index: 10000;
+
+        /*    width: 300px;*/
+        background-color: #f7f7f7;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        padding: 20px 0px;
+
+    }
+
+    /* Show the dropdown menu on hover */
+    .dropdown:hover .dropdown-content {display: flex;}
+
+    .dropdown-category {
+        margin-bottom: 20px;
+        width: 300px;
+        border-right: 1px solid #c7c7c7;
+    }
+    .dropdown-category .category-title{
+        font-weight: 700;
+        font-size: 16px;
+        padding-bottom: 10px;
+        margin-left: 20px;
+
+    }
+    .dropdown-category ul > li {
+        font-size: 16px;
+        margin-bottom: 5px;
+        padding: 2px 10px 2px 20px;
+    }
+    .dropdown-category ul > li:after{
+        width: 10px;
+        height: 15px;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        content: "";
+        background-image: url("/images/category-arrow.svg");
+        float: right;
+    }
+    .dropdown-category ul > li:hover{
+        background-color: #e0f1ff;
+    }
+
+}
 
 @media only screen and (max-width: 991px) {
+    .dropdown-content {display: none}
   #top-header .header-links.pull-left {
     float: none !important;
   }
@@ -2471,6 +2519,9 @@ textarea.input {
 /*    padding: 10px;*/
     margin-bottom: 10px;
 }
+.cabinet .orders .uncheckout {
+    border: 1px solid #ff5a5a;
+}
 .cabinet .profile{
     margin-bottom: 20px;
 }
@@ -2483,7 +2534,10 @@ textarea.input {
     display: flex;
     justify-content: space-between;
 }
-.cabinet .orders .item .head .delete-order{
+.cabinet .orders .uncheckout .head {
+    background-color: #ff5a5a;
+}
+.cabinet .orders .item .head .delete-order, {
     color: white;
 }
 .cabinet .orders .item .body{
@@ -2499,3 +2553,16 @@ textarea.input {
 .cabinet .orders-not-found{
     font-size: 15px;
 }
+
+#navigation {
+    background: #FFF;
+    border-bottom: 2px solid #E4E7ED;
+    /*  border-top: 3px solid #558bee;*/
+}
+#navigation #catalog{
+    background-color: #558bee;
+    padding: 0px 40px;
+
+}
+
+

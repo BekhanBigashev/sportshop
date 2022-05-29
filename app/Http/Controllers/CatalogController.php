@@ -44,8 +44,9 @@ class CatalogController extends Controller
      */
     public function product($category,$productId)
     {
-        $product = Product::where('id',$productId)->first();
-        return view('product', ['product' => $product]);
+        $product = Product::find($productId);
+
+        return view('product', ['category'=>$category,'product' => $product]);
     }
 
     public function catalog(Request $request, $code)
@@ -53,7 +54,6 @@ class CatalogController extends Controller
         $category = Category::where('code',$code)->first();
         if ($category->parent_id != 0) {
             $builder = Product::where('category_id', $category->id)->where('available_items_count', '!=', 0);
-            $products = $builder->get();
             if ($request->has('sort') && in_array($request->sort, ['price', 'name'])) {
                 if ($request->has('order') && in_array($request->order, ['asc', 'desc'])) {
                     $builder->orderBy($request->sort, $request->order);
@@ -70,7 +70,7 @@ class CatalogController extends Controller
             }
             $products = $builder->paginate(8)->withQueryString();
 
-            return view('catalog', ['category' => $category, 'products' => $products]);//, 'params' => $request->all()
+            return view('catalog', ['category' => $category, 'products' => $products]);
         } else {
             return view('category', ['category'=>$category]);
         }

@@ -140,29 +140,7 @@
                 </div>
             </div>
         @endif
-		<!-- NAVIGATION -->
-        <nav id="navigation">
-
-			<div class="container">
-				<!-- responsive-nav -->
-				<div id="responsive-nav">
-					<!-- NAV -->
-					<ul class="main-nav nav navbar-nav">
-                    <li><a href="{{route('index')}}">Главная</a></li>
-                    <li><a href="{{route('categories')}}">Каталог</a></li>
-                     @foreach ($categories as $category)
-                    <li><a href="{{route('catalog', $category->code)}}">{{$category->name}}</a>
-                    </li>
-                    @endforeach
-
-					</ul>
-					<!-- /NAV -->
-				</div>
-				<!-- /responsive-nav -->
-			</div>
-			<!-- /container -->
-		</nav>
-		<!-- /NAVIGATION -->
+		@include('includes/nav')
 		<div class="section">
 			<div class="container">
                 <h3>@yield('page-title')</h3>
@@ -208,6 +186,15 @@
         </div>-->
         <!-- /NEWSLETTER -->
     <footer id="footer">
+
+        <div class="dropdown">
+<!--            <button class="dropbtn">Dropdown</button>
+            <div class="dropdown-content">
+                <a href="#">Link 1</a>
+                <a href="#">Link 2</a>
+                <a href="#">Link 3</a>
+            </div>-->
+        </div>
 			<!-- top footer -->
 			<div class="section">
 				<!-- container -->

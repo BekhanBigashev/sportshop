@@ -30,30 +30,17 @@ class BasketController extends Controller
         if (is_null($orderId)) {
             return redirect()->route('index');
         }
-        $validated = $request->validate([
-            'name' => 'required|min:4|max:25',
-            'email' => 'required|email',
-            'phone' => 'required',
-            'delivery' => 'required|in:pickup,delivery',
-            'delivery_point_id' => 'nullable',
-            'adress' => 'nullable|min:5|max:25',
-            'comment' => 'nullable|min:5|max:200',
+        $validated = $request->validate(['name' => 'required|min:4|max:25','email' => 'required|email',
+            'phone' => 'required','delivery' => 'required|in:pickup,delivery',
+            'delivery_point_id' => 'nullable','adress' => 'nullable|min:5|max:25','comment' => 'nullable|min:5|max:200',
         ]);
         $order = Order::find($orderId);
         $success = $order->saveOrder($validated);
         if ($success){
-/*            $paymentPageLink = PayBoxApiService::getPaymentPageLink($order);*/
-
-            TelegramService::newOrder($order);
             session()->forget('orderId');
             session()->flash('success', 'Ваш заказ успешно оформлен');
             session(['afterCheckoutOrderId' => $orderId]);
-/*            $b24_response = B24Service::addDeal([
-                'TITLE' => 'Новый заказ на sportshop.kz',
-                'STAGE_ID' => 'EXECUTING',
-            ]);*/
             foreach ($order->products as $product) {
-
                 $product->available_items_count -= $product->pivot->count;
                 $product->save();
             }

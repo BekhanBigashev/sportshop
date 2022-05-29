@@ -6,6 +6,7 @@ use App\Models\Order;
 use App\Models\Product;
 use App\Services\TelegramService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MainController extends Controller
 {
@@ -16,14 +17,22 @@ class MainController extends Controller
     public function index()
     {
         $context = [];
+
         $context['newProducts'] = Product::orderBy('created_at', 'desc')->limit(8)->get();
         if ($orderId = session()->get('afterCheckoutOrderId')) {
             $order = Order::find($orderId);
-/*            dd($order->relatedProducts());*/
-            $context['afterCheckoutOrder'] = $order->relatedProducts();
-        } else {
-            $context['afterCheckoutOrder'] = false;
+            $toRecsProductIds = $order->recommendedProducts();
+
         }
+        if ($user = Auth::user()) {
+            foreach ($user->brokenBaskets() as $broken) {
+                foreach ($broken->products as $product) {
+                    $toRecsProductIds[] = $product->id;
+                }
+            }
+
+        }
+        $context['recs'] = isset($toRecsProductIds) ? Product::getCollectionByIds($toRecsProductIds) : false;
         return view('index', $context);
     }
 
@@ -62,31 +71,5 @@ class MainController extends Controller
 
     }
 
-    public function test()
-    {
 
-
-        $curl = curl_init();
-
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://api.paybox.money/init_payment.php',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => array('pg_order_id' => '140', 'pg_merchant_id' => '543847', 'pg_amount' => '1500', 'pg_description' => 'Оплата заказа', 'pg_salt' => 'some random string', 'pg_sig' => 'e8d9885b6431b9bef3e29142dd6da8d0'),
-            CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/x-www-form-urlencoded'
-            ),
-        ));
-
-        $response = curl_exec($curl);
-
-        curl_close($curl);
-        echo $response;
-
-    }
 }

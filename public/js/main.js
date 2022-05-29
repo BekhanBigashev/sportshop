@@ -248,6 +248,12 @@ $('.add-to-cart-btn').click(function (event){
                             window.location.href = '/basket/';
                         }
                     },
+           /*         {
+                        text: 'Оформить заказ',
+                        onClick: function() {
+                            window.location.href = '/basket/place/';
+                        }
+                    },*/
                 ]
             });
             event.target.innerText = 'Добавить еще';

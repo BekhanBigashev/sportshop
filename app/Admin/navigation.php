@@ -7,33 +7,38 @@ use SleepingOwl\Admin\Navigation\Page;
 // 	   return auth()->user()->isSuperAdmin();
 // });
 //
-// AdminNavigation::addPage(\App\User::class)->setTitle('test')->setPages(function(Page $page) {
-// 	  $page
-//		  ->addPage()
-//	  	  ->setTitle('Dashboard')
-//		  ->setUrl(route('admin.dashboard'))
-//		  ->setPriority(100);
-//
-//	  $page->addPage(\App\User::class);
-// });
+/* AdminNavigation::addPage(\App\User::class)->setTitle('test')->setPages(function(Page $page) {
+ 	  $page
+		  ->addPage()
+	  	  ->setTitle('Dashboard')
+		  ->setUrl(route('admin.dashboard'))
+		  ->setPriority(100);
+
+	  $page->addPage(\App\User::class);
+ });*/
 //
 // // or
 //
 // AdminSection::addMenuPage(\App\User::class)
 
 return [
-    [
+/*    [
         'title' => 'Dashboard',
         'icon'  => 'fas fa-tachometer-alt',
         'url'   => route('admin.dashboard'),
-    ],
+    ],*/
 
-    [
+/*    [
         'title' => 'Information',
         'icon'  => 'fas fa-info-circle',
         'url'   => route('admin.information'),
-    ],
+    ],*/
 
+    [
+        'title' => 'Неоформленные корзины',
+        'icon'  => 'fas fa-info',
+        'url'   => route('admin.uncheckout'),
+    ],
     // Examples
     // [
     //    'title' => 'Content',

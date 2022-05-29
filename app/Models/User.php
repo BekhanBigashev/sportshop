@@ -47,4 +47,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class)->orderBy('created_at', 'desc');
     }
+
+    public function brokenBaskets()
+    {
+        return Order::where('status', 0)->where('user_id', $this->id)->orderBy('created_at', 'asc')->get();
+    }
 }

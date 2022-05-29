@@ -55,11 +55,11 @@
 <div class="section">
     <!-- container -->
     <div class="container">
-        @if($afterCheckoutOrder)
+        @if($recs)
             <div class="after_checkout">
                 <h3>Вам также могут понравиться</h3>
                 <div class="recommendations row">
-                    @foreach($afterCheckoutOrder as $product)
+                    @foreach($recs as $product)
                         <div class="col-md-3">
                             @include('includes/catalog-item')
                         </div>

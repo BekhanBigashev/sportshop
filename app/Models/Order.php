@@ -84,7 +84,12 @@ class Order extends Model
     {
         $orderId = session('orderId');
         if (is_null($orderId)) {
-            $order = self::create();
+            $order = new Order();
+            $order->status = 0;
+            if (Auth::id()) {
+                $order->user_id = Auth::id();
+            }
+            $order->save();
             session(['orderId' => $order->id]);
         }else{
             $order = self::find($orderId);
@@ -103,16 +108,17 @@ class Order extends Model
         return DeliveryPoint::find($this->delivery_point_id);
     }
 
-    public function relatedProducts()
+    public function recommendedProducts()
     {
         $orderProducts = $this->products;
 
         foreach ($orderProducts as $product) {
-            $related = $product->related(count($orderProducts) > 2 ? 2 : 1);
+            $related = $product->related(count($orderProducts) < 2 ? 2 : 1);
             foreach ($related as $item) {
-                $res[] = $item;
+                $result[] = $item;
             }
         }
-        return $res ?? false;
+
+        return $result ?? [];
     }
 }

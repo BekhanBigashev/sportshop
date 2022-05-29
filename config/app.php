@@ -232,4 +232,6 @@ return [
 
     ],
 
+    'related_product_price_diff' => 4000,
+
 ];
